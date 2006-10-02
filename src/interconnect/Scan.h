@@ -44,7 +44,7 @@ public:
 
 	bool getNextResults(vector<KeyValue*> *resultSet)
 	{
-
+		return false;
 	}
 	virtual ~Scan();
 protected:
