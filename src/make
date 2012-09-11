@@ -1,0 +1,1 @@
+g++ CClient.cpp  ClientService.cpp cloudtrace_types.cpp cloudtrace_constants.cpp client_types.cpp client_constants.cpp data_constants.cpp security_types.cpp security_constants.cpp gc_types.cpp  -I/usr/local/include/thrift -lthrift -lboost_system -o server
