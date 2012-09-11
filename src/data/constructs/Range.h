@@ -16,11 +16,7 @@ namespace data {
 using namespace cclient::exceptions;
 class Range {
 public:
-	Range() :
-			start(NULL), stop(NULL), startKeyInclusive(true), stopKeyInclusive(
-					false) {
-
-	}
+	Range();
 
 	Range(Key *startKey, bool startInclusive, Key *endKey, bool endKeyInclusive) :
 			start(startKey), startKeyInclusive(startInclusive), stop(endKey), stopKeyInclusive(
