@@ -8,25 +8,22 @@
 #ifndef KEYEXTENT_H_
 #define KEYEXTENT_H_
 
-#include "../client/ClientException.h"
+#include "../exceptions/ClientException.h"
 #include <string>
 #include <iostream>
-
+#include "value.h"
 using namespace std;
 
 namespace cclient {
 namespace data {
 
-using namespace cclient::impl;
+//using namespace cclient::impl;
+using namespace cclient::exceptions;
 class KeyExtent {
 public:
-	KeyExtent(string flattenedText, Value *prevEndRow) {
-		decodeMetadataRow(flattenedText);
+	KeyExtent(string flattenedText, Value *prevEndRow);
 
-	}
-	virtual ~KeyExtent() {
-
-	}
+	virtual ~KeyExtent();
 
 	bool operator <(const KeyExtent &rhs) const {
 		int result = tableId.compare(rhs.tableId);
@@ -72,7 +69,8 @@ public:
 
 protected:
 	void setPrevEndRow(Value *prevEndRow) {
-		std::pair<char *, size_t> valuePair = prevEndRow->getValue();
+		std::pair<unsigned char *, size_t> valuePair = prevEndRow->getValue();
+		setPrevEndRow((char*)valuePair.first,valuePair.second);
 
 	}
 	void setPrevEndRow(char *text, size_t text_len) {

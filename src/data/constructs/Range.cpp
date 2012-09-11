@@ -10,7 +10,9 @@
 namespace cclient {
 namespace data {
 
-Range::Range() {
+Range::Range() :
+		start(NULL), stop(NULL), startKeyInclusive(true), stopKeyInclusive(
+				false) {
 	// TODO Auto-generated constructor stub
 
 }
