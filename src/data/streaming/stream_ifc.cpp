@@ -1,4 +1,4 @@
-#include "data_writer.h"
+#include "stream_ifc.h"
 
 #include "input/in_stream.h"
 

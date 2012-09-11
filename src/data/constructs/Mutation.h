@@ -8,7 +8,7 @@
 #ifndef MUTATION_H_
 #define MUTATION_H_
 
-#include "../data_types.h"
+#include "../../data_types.h"
 #include <iostream>
 #include <sys/types.h>
 #include <stdint.h>

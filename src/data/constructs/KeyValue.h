@@ -21,30 +21,12 @@ namespace data {
 
 class KeyValue {
 public:
-	 KeyValue(): key((StreamInterface*)new RelativeKey()), my_alloc(true)
-	    {
-
-	    }
+	 KeyValue();
 
 
+	    virtual ~KeyValue();
 
-	    virtual ~KeyValue()
-	    {
-	        if (my_alloc)
-	            delete key;
-	    }
-
-	    /**
-	     * Sets the key
-	     * @param k key to set
-	     */
-	    void setKey(StreamInterface *k)
-	    {
-	        if (my_alloc)
-	            delete key;
-	        key = k;
-	    }
-
+	    void setKey(StreamInterface *k);
 
 	    StreamInterface *getKey();
 

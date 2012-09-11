@@ -10,8 +10,9 @@
 namespace cclient {
 namespace data {
 
-KeyExtent::KeyExtent() {
-	// TODO Auto-generated constructor stub
+
+KeyExtent::KeyExtent(string flattenedText, Value *prevEndRow) {
+	decodeMetadataRow(flattenedText);
 
 }
 
