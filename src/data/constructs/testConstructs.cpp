@@ -9,7 +9,7 @@
 using namespace std;
 #include "rkey.h"
 #include "KeyExtent.h"
-#include "key.h"
+#include "Key.h"
 #include "Mutation.h"
 
 using namespace cclient::data;

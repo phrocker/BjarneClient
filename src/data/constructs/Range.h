@@ -9,7 +9,7 @@
 #define RANGE_H_
 
 #include "../exceptions/IllegalArgumentException.h"
-#include "key.h"
+#include "Key.h"
 namespace cclient {
 namespace data {
 

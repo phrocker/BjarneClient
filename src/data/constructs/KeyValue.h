@@ -9,7 +9,7 @@
 #define KEYVALUE_H_
 
 #include <stdint.h>
-#include "key.h"
+#include "Key.h"
 #include "value.h"
 #include "rkey.h"
 

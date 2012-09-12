@@ -8,7 +8,7 @@
 #ifndef R_KEY
 #define R_KEY
 
-#include "key.h"
+#include "Key.h"
 #include <stdint.h>
 
 #include "../streaming/stream_ifc.h"
