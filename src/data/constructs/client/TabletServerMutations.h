@@ -24,16 +24,16 @@ public:
 	virtual ~TabletServerMutations();
 
 	void addMutation(KeyExtent *extent, Mutation m) {
-		list<Mutation> mutationList = mutations[m];
+		list<Mutation> mutationList = mutations[extent];
 		mutationList.push_back(m);
 	}
 
 	map<KeyExtent*, list<Mutation> > *getMutations() {
-		return &mutations;
+		return &TabletServerMutations::mutations;
 	}
 
 protected:
-	static map<KeyExtent*, list<Mutation>> mutations;
+	static map<KeyExtent*, list<Mutation> > mutations;
 };
 
 } /* namespace data */
