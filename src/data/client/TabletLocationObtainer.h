@@ -30,7 +30,7 @@ public:
 	virtual ~TabletLocationObtainer();
 
 	virtual list<TabletLocation> findTablet(TabletLocation *source, string row, string stopRow,TabletLocator *parent) = 0;
-	virtual list<TabletLocation> findTablet(string tabletserver, map<KeyExtent,list<Range>> *map,TabletLocator *parent) = 0;
+	virtual list<TabletLocation> findTablet(string tabletserver, map<KeyExtent,list<Range> > *map,TabletLocator *parent) = 0;
 
 };
 
