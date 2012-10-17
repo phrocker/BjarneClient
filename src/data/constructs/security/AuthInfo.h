@@ -5,16 +5,17 @@
  *      Author: marc
  */
 
-#include <string>
-
-using namespace std;
 
 
 #ifndef AUTHINFO_H_
 #define AUTHINFO_H_
 
+#include <string>
+
+using namespace std;
 namespace cclient {
 namespace data {
+namespace security {
 
 class AuthInfo {
 public:
@@ -28,7 +29,7 @@ protected:
 	string instanceId;
 	string password;
 };
-
+}
 } /* namespace data */
 } /* namespace cclient */
 #endif /* AUTHINFO_H_ */
