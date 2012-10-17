@@ -14,9 +14,13 @@
 using namespace std;
 
 
-#include "../../../writer/Connector.h"
+#include "../../../connector/Connector.h"
 #include "../security/AuthInfo.h"
 #include "../configuration/Configuration.h"
+
+#include <string>
+#include <list>
+using namespace std;
 
 namespace cclient {
 namespace data {
