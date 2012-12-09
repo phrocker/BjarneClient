@@ -2,3 +2,4 @@
 .project
 .settings
 src/server
+*.o
