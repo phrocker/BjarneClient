@@ -14,6 +14,7 @@
 using namespace std;
 
 
+#include "../../../interconnect/Master.h"
 #include "../../../connector/Connector.h"
 #include "../security/AuthInfo.h"
 #include "../configuration/Configuration.h"
@@ -37,6 +38,7 @@ public:
 	virtual Connector *getConnector(AuthInfo *authoration) = 0;
 	virtual Configuration &getConfiguration() = 0;
 	virtual void setConfiguration(Configuration *conf) = 0;
+	virtual Master * getMasterInterconnects();
 	virtual ~Instance();
 };
 
