@@ -14,11 +14,12 @@ using namespace std;
 #include "../data/constructs/security/Authorizations.h"
 namespace cclient {
 namespace impl {
+using namespace interconnect;
 using namespace cclient::thrift;
 using namespace cclient::data::security;
 class Connector {
 public:
-	Connector();
+	Connector(Instance *instance, string user, string password);
 
 	virtual Scanner *createScanner(string tableName, Authorizations *authorizations, int numQueryThreads) = 0;
 
