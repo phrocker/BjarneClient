@@ -26,9 +26,7 @@ public:
 	AccumuloConnector(Instance *instance, string user, string password);
 	virtual ~AccumuloConnector();
 	Scanner *createScanner(string tableName, Authorizations *authorizations, int numQueryThreads);
-private:
-	Instance *myInstance;
-	AuthInfo *credentials;
+
 };
 }}
 #endif /* ACCUMULOCONNECTOR_H_ */
