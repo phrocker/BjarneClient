@@ -1,21 +1,18 @@
 /*
  * Scanner.cpp
  *
- *  Created on: Oct 7, 2012
+ *  Created on: Dec 9, 2012
  *      Author: marc
  */
 
 #include "Scanner.h"
 
-namespace cclient {
-
-Scanner::Scanner() {
+ScannerBase::ScannerBase() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Scanner::~Scanner() {
+ScannerBase::~ScannerBase() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace cclient */

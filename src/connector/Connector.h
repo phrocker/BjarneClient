@@ -7,9 +7,11 @@
 
 #ifndef CONNECTOR_H_
 #define CONNECTOR_H_
+#include <iostream>
 #include <string>
 using namespace std;
 #include "../scanner/thrift/Scanner.h"
+#include "../data/constructs/client/Instance.h"
 #include "../data/constructs/security/AuthInfo.h"
 #include "../data/constructs/security/Authorizations.h"
 namespace cclient {
@@ -24,6 +26,9 @@ public:
 	virtual Scanner *createScanner(string tableName, Authorizations *authorizations, int numQueryThreads) = 0;
 
 	virtual ~Connector();
+protected:
+	Instance *myInstance;
+	AuthInfo *credentials;
 };
 
 } /* namespace impl */

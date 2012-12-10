@@ -10,7 +10,11 @@
 namespace cclient {
 namespace impl {
 
-Connector::Connector() {
+Connector::Connector(
+
+		Instance *instance,
+		string user,
+		string &password) {
 	// TODO Auto-generated constructor stub
 
 }
