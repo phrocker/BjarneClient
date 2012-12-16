@@ -27,7 +27,7 @@ namespace impl
 using namespace cclient::data;
 using namespace cclient::data::security;
 
-
+/home/marc/BjarneClient/src
 Scanner::Scanner(Instance *instance, AuthInfo *credentials, string table, Authorizations *authorizations) {
 	// TODO Auto-generated constructor stub
 
