@@ -23,23 +23,26 @@ using namespace std;
 #include <list>
 using namespace std;
 
-namespace cclient {
-namespace data {
+namespace cclient
+{
+namespace data
+{
 
 using namespace cclient::impl;
 
-class Instance {
+class Instance
+{
 public:
-	virtual string getRootTabletLocation() = 0;
-	virtual list<string> getMasterLocations = 0;
-	virtual string getInstanceId() = 0;
-	virtual string getInstanceName() = 0;
-	//virtual string getZooKeepers() = 0;
-	virtual Connector *getConnector(AuthInfo *authoration) = 0;
-	virtual Configuration &getConfiguration() = 0;
-	virtual void setConfiguration(Configuration *conf) = 0;
-	virtual Master * getMasterInterconnects();
-	virtual ~Instance();
+    virtual string getRootTabletLocation() = 0;
+    virtual list<string> getMasterLocations = 0;
+    virtual string getInstanceId() = 0;
+    virtual string getInstanceName() = 0;
+    //virtual string getZooKeepers() = 0;
+    virtual Connector *getConnector(AuthInfo *authoration) = 0;
+    virtual Configuration &getConfiguration() = 0;
+    virtual void setConfiguration(Configuration *conf) = 0;
+    virtual Master * getMasterInterconnects();
+    virtual ~Instance();
 };
 
 } /* namespace impl */

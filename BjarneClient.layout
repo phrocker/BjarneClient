@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="src/CClient.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="223" topLine="0" />
+	</File>
+	<File name="src/ClientService.h" open="1" top="0" tabpos="17">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/connector/Connector.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="98" topLine="0" />
+	</File>
+	<File name="src/connector/Connector.h" open="1" top="0" tabpos="10">
+		<Cursor position="209" topLine="3" />
+	</File>
+	<File name="src/connector/impl/AccumuloConnector.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="121" topLine="3" />
+	</File>
+	<File name="src/connector/impl/AccumuloConnector.h" open="1" top="0" tabpos="9">
+		<Cursor position="173" topLine="0" />
+	</File>
+	<File name="src/data/constructs/Key.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="0" topLine="12" />
+	</File>
+	<File name="src/data/constructs/client/Instance.h" open="1" top="0" tabpos="4">
+		<Cursor position="450" topLine="2" />
+	</File>
+	<File name="src/data/constructs/client/TabletServerMutations.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/data/constructs/configuration/Configuration.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="571" topLine="21" />
+	</File>
+	<File name="src/data/constructs/configuration/Configuration.h" open="1" top="0" tabpos="6">
+		<Cursor position="138" topLine="3" />
+	</File>
+	<File name="src/data/streaming/translator.cpp" open="1" top="0" tabpos="14">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/scanner/Scanner.cpp" open="1" top="1" tabpos="18">
+		<Cursor position="90" topLine="0" />
+	</File>
+	<File name="src/scanner/Scanner.h" open="1" top="0" tabpos="11">
+		<Cursor position="180" topLine="0" />
+	</File>
+	<File name="src/scanner/constructs/Results.h" open="1" top="0" tabpos="16">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/scanner/impl/Scanner.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="546" topLine="1" />
+	</File>
+</CodeBlocks_layout_file>

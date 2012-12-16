@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1355629785 source:/home/marc/BjarneClient/src/data/constructs/configuration/Configuration.cpp
+	"Configuration.h"
+	<string>
+	<map>
+
+1355629713 /home/marc/BjarneClient/src/data/constructs/configuration/Configuration.h
+	<string>
+	<map>
+

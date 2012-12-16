@@ -8,7 +8,7 @@
 #ifndef ACCUMULOCONNECTOR_H_
 #define ACCUMULOCONNECTOR_H_
 
-#include "Connector.h"
+#include "../Connector.h"
 #include <string>
 using namespace std;
 #include "../../scanner/thrift/Scanner.h"

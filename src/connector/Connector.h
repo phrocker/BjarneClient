@@ -10,7 +10,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-#include "../scanner/thrift/Scanner.h"
+#include "../scanner/Scanner.h"
 #include "../data/constructs/client/Instance.h"
 #include "../data/constructs/security/AuthInfo.h"
 #include "../data/constructs/security/Authorizations.h"
