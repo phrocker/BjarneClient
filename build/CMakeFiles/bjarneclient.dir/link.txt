@@ -1,0 +1,1 @@
+/usr/bin/c++   -g    CMakeFiles/bjarneclient.dir/main.o  -o bjarneclient -rdynamic 
