@@ -11,6 +11,7 @@ using namespace cclient::data::security;
 #include <iostream>
 
 #include <string>
+#include <set>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ using namespace std;
 
 void Authorizations::addAuthorization(string auth)
 {
-	authStrings.push_back( auth );
+	authStrings.insert( auth );
 }
 
 
