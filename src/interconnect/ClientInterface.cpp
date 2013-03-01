@@ -15,7 +15,7 @@ using namespace std;
 using namespace interconnect;
 
 ClientInterface::ClientInterface(
-		const string host, const int port) : server_host(host) , server_port( port);
+		const string host, const int port) : server_host(host) , server_port( port)
 {
 
 

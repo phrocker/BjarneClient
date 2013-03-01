@@ -3,3 +3,4 @@
 .settings
 src/server
 *.o
+*~

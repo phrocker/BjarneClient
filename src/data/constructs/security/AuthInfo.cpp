@@ -9,6 +9,7 @@
 
 namespace cclient {
 namespace data {
+namespace security{
 
 AuthInfo::AuthInfo(string user,
 		 string password,
@@ -18,8 +19,11 @@ AuthInfo::AuthInfo(string user,
 }
 
 AuthInfo::~AuthInfo() {
-	// TODO Auto-generated destructor stub
+	
 }
 
+  
+  
+}
 } /* namespace data */
 } /* namespace cclient */
