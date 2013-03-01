@@ -17,42 +17,39 @@
 */
 
 
-#ifndef ZOOKEEPERINSTANCE_H
-#define ZOOKEEPERINSTANCE_H
-#include "Instance.h"
+#ifndef WATCH_H
+#define WATCH_H
+
 
 #include <iostream>
 #include <string>
 #include <zookeeper/zookeeper.hh>
+#include <set>
 using namespace org::apache::zookeeper;
+using namespace org::apache::zookeeper::proto;
 using namespace std;
-namespace cclient {
-namespace impl {
-  using namespace cclient::data;
-class ZookeeperInstance : public Instance
+
+class ZooWatch : public Watch
 {
 public:
-    ZookeeperInstance(string in, string inId, string zks) : instanceId(inId) , instanceName(in), zookeeperList(zks)
-    {
-    }
-    
-    string getRootTabletLocation();
-    list<string> getMasterLocations();
-    string getInstanceId();
-    string getInstanceName();
-    Connector *getConnector(AuthInfo *authoration);
-    Configuration &getConfiguration();
-    void setConfiguration(Configuration *conf);
-    Master * getMasterInterconnects();
-    ~ZookeeperInstance();
-    
+  ZooWatch()
+  {
+      watchers = new set<Watch*>();
+  }
+  void process	(WatchEvent::type event,SessionState::type state,const std::string & path)	
+  {
+      set<Watch*> myWatches = new set<Watch*>( watchers );
+      
+      for( set<Watch*>::iterator it = myWatches.begin(); it != myWatches.end(); it++)
+      {
+	(*it)->process( event, state, path );
+      }
+      
+      delete myWatches;
+      
+  }
 protected:
-    string instanceId;
-    string instanceName;
-    string zookeeperList;
-    
+    set<Watch*> watchers;
 };
-}
-}
 
-#endif // ZOOKEEPERINSTANCE_H
+#endif // WATCH_H
