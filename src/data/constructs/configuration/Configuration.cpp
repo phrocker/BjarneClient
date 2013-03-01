@@ -17,12 +17,12 @@ namespace cclient {
 namespace impl {
 
 Configuration::Configuration() {
-	// TODO Auto-generated constructor stub
+	
 
 }
 
 Configuration::~Configuration() {
-	// TODO Auto-generated destructor stub
+	
 }
 
 

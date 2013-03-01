@@ -11,12 +11,12 @@ namespace cclient {
 namespace data {
 
 TabletServerMutations::TabletServerMutations() {
-	// TODO Auto-generated constructor stub
+	
 
 }
 
 TabletServerMutations::~TabletServerMutations() {
-	// TODO Auto-generated destructor stub
+	
 }
 
 } /* namespace data */
