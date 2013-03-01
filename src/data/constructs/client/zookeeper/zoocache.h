@@ -17,42 +17,21 @@
 */
 
 
-#ifndef ZOOKEEPERINSTANCE_H
-#define ZOOKEEPERINSTANCE_H
-#include "Instance.h"
+#ifndef ZOOCACHE_H
+#define ZOOCACHE_H
+
 
 #include <iostream>
 #include <string>
 #include <zookeeper/zookeeper.hh>
 using namespace org::apache::zookeeper;
+using namespace org::apache::zookeeper::proto;
 using namespace std;
-namespace cclient {
-namespace impl {
-  using namespace cclient::data;
-class ZookeeperInstance : public Instance
-{
-public:
-    ZookeeperInstance(string in, string inId, string zks) : instanceId(inId) , instanceName(in), zookeeperList(zks)
-    {
-    }
-    
-    string getRootTabletLocation();
-    list<string> getMasterLocations();
-    string getInstanceId();
-    string getInstanceName();
-    Connector *getConnector(AuthInfo *authoration);
-    Configuration &getConfiguration();
-    void setConfiguration(Configuration *conf);
-    Master * getMasterInterconnects();
-    ~ZookeeperInstance();
-    
-protected:
-    string instanceId;
-    string instanceName;
-    string zookeeperList;
-    
-};
-}
-}
 
-#endif // ZOOKEEPERINSTANCE_H
+class ZooCache
+{
+    WatcherEvent event;
+};
+
+#endif // ZOOCACHE\_H
+
