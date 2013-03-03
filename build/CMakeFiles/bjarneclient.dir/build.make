@@ -49,9 +49,78 @@ include CMakeFiles/bjarneclient.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/bjarneclient.dir/flags.make
 
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o: CMakeFiles/bjarneclient.dir/flags.make
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o: ../src/data/constructs/client/zookeeper/watch.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/marc/BjarneClient/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o -c /home/marc/BjarneClient/src/data/constructs/client/zookeeper/watch.cpp
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/marc/BjarneClient/src/data/constructs/client/zookeeper/watch.cpp > CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.i
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/marc/BjarneClient/src/data/constructs/client/zookeeper/watch.cpp -o CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.s
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.requires:
+.PHONY : CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.requires
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.provides: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.requires
+	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.provides.build
+.PHONY : CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.provides
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.provides.build: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o: CMakeFiles/bjarneclient.dir/flags.make
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o: ../src/data/constructs/client/zookeeper/zookeepers.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/marc/BjarneClient/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o -c /home/marc/BjarneClient/src/data/constructs/client/zookeeper/zookeepers.cpp
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/marc/BjarneClient/src/data/constructs/client/zookeeper/zookeepers.cpp > CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.i
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/marc/BjarneClient/src/data/constructs/client/zookeeper/zookeepers.cpp -o CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.s
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.requires:
+.PHONY : CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.requires
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.provides: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.requires
+	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.provides.build
+.PHONY : CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.provides
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.provides.build: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o: CMakeFiles/bjarneclient.dir/flags.make
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o: ../src/data/constructs/client/zookeeperinstance.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/marc/BjarneClient/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o -c /home/marc/BjarneClient/src/data/constructs/client/zookeeperinstance.cpp
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/marc/BjarneClient/src/data/constructs/client/zookeeperinstance.cpp > CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.i
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/marc/BjarneClient/src/data/constructs/client/zookeeperinstance.cpp -o CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.s
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.requires:
+.PHONY : CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.requires
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.provides: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.requires
+	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.provides.build
+.PHONY : CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.provides
+
+CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.provides.build: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o
+
 CMakeFiles/bjarneclient.dir/main.o: CMakeFiles/bjarneclient.dir/flags.make
 CMakeFiles/bjarneclient.dir/main.o: ../main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/marc/BjarneClient/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/marc/BjarneClient/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bjarneclient.dir/main.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/bjarneclient.dir/main.o -c /home/marc/BjarneClient/main.cpp
 
@@ -74,11 +143,17 @@ CMakeFiles/bjarneclient.dir/main.o.provides.build: CMakeFiles/bjarneclient.dir/m
 
 # Object files for target bjarneclient
 bjarneclient_OBJECTS = \
+"CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o" \
+"CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o" \
+"CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o" \
 "CMakeFiles/bjarneclient.dir/main.o"
 
 # External object files for target bjarneclient
 bjarneclient_EXTERNAL_OBJECTS =
 
+bjarneclient: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o
+bjarneclient: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o
+bjarneclient: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o
 bjarneclient: CMakeFiles/bjarneclient.dir/main.o
 bjarneclient: CMakeFiles/bjarneclient.dir/build.make
 bjarneclient: CMakeFiles/bjarneclient.dir/link.txt
@@ -89,6 +164,9 @@ bjarneclient: CMakeFiles/bjarneclient.dir/link.txt
 CMakeFiles/bjarneclient.dir/build: bjarneclient
 .PHONY : CMakeFiles/bjarneclient.dir/build
 
+CMakeFiles/bjarneclient.dir/requires: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o.requires
+CMakeFiles/bjarneclient.dir/requires: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o.requires
+CMakeFiles/bjarneclient.dir/requires: CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o.requires
 CMakeFiles/bjarneclient.dir/requires: CMakeFiles/bjarneclient.dir/main.o.requires
 .PHONY : CMakeFiles/bjarneclient.dir/requires
 

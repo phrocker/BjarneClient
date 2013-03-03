@@ -1,4 +1,7 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o"
+  "CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o"
+  "CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o"
   "CMakeFiles/bjarneclient.dir/main.o"
   "bjarneclient.pdb"
   "bjarneclient"

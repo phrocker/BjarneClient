@@ -5,6 +5,9 @@ SET(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/marc/BjarneClient/main.cpp" "/home/marc/BjarneClient/build/CMakeFiles/bjarneclient.dir/main.o"
+  "/home/marc/BjarneClient/src/data/constructs/client/zookeeper/watch.cpp" "/home/marc/BjarneClient/build/CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o"
+  "/home/marc/BjarneClient/src/data/constructs/client/zookeeper/zookeepers.cpp" "/home/marc/BjarneClient/build/CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o"
+  "/home/marc/BjarneClient/src/data/constructs/client/zookeeperinstance.cpp" "/home/marc/BjarneClient/build/CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
