@@ -16,9 +16,7 @@ using namespace std;
 
 
 namespace cclient {
-namespace impl {
-
-using namespace cclient::data;
+namespace data {
 
 class TabletLocation {
 public:

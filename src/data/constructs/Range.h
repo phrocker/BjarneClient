@@ -29,6 +29,11 @@ public:
 			throw new IllegalArgumentException("Start key must be less than end key in range");
 		}
 	}
+	
+	Key *getStartKey()
+	{
+	    return start;
+	}
 
 	virtual ~Range();
 protected:
