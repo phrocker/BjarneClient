@@ -21,21 +21,27 @@
 #define ZOOKEEPERINSTANCE_H
 #include "Instance.h"
 
+
 #include <iostream>
 #include <string>
 #include <zookeeper/zookeeper.hh>
 #include "./zookeeper/zookeepers.h"
 #include "./zookeeper/zoocache.h"
 #include "../inputvalidation.h"
+#include "../../../connector/Connector.h"
 #include "../../exceptions/ClientException.h"
 #include "../configuration/Configuration.h"
+#include "../../../interconnect/Master.h"
 
 using namespace org::apache::zookeeper;
 using namespace std;
 namespace cclient{
 namespace data{
   namespace zookeeper{
+   
+  using namespace interconnect;
   using namespace cclient::impl;
+  using namespace cclient::connector::impl;
   using namespace cclient::data;
   using namespace cclient::exceptions;
 class ZookeeperInstance : public Instance

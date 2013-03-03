@@ -30,8 +30,15 @@ protected:
 	int server_port;
 	bool authenticated;
 
+	string authenticated_user;
+	string authenticated_password;
+// info abt cluster
 	string instanceId;
 	string zookeepers;
+	
+	
+
+	
 
 };
 }

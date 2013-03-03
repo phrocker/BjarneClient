@@ -44,7 +44,7 @@ using namespace std;
 #define ZMASTER_LOCK "/masters/lock"
 #define ZROOT_TABLET "/root_tablet"
 #define ZROOT_TABLET_LOCATION "/root_tablet/location"
-
+#define TSERVERS "/tservers"
 
 namespace cclient{
 namespace data{

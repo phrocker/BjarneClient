@@ -110,14 +110,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/marc/BjarneClient/build/CMakeFiles /home/marc/BjarneClient/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /home/marc/BjarneClient/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/marc/BjarneClient/build/CMakeFiles /home/marc/BjarneClient/build/src/data/constructs/client/zookeeper/CMakeFiles/progress.marks
+	cd /home/marc/BjarneClient/build && $(MAKE) -f CMakeFiles/Makefile2 src/data/constructs/client/zookeeper/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/marc/BjarneClient/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/marc/BjarneClient/build && $(MAKE) -f CMakeFiles/Makefile2 src/data/constructs/client/zookeeper/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,91 +126,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/marc/BjarneClient/build && $(MAKE) -f CMakeFiles/Makefile2 src/data/constructs/client/zookeeper/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/marc/BjarneClient/build && $(MAKE) -f CMakeFiles/Makefile2 src/data/constructs/client/zookeeper/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/marc/BjarneClient/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named bjarneclient
-
-# Build rule for target.
-bjarneclient: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 bjarneclient
-.PHONY : bjarneclient
-
-# fast build rule for target.
-bjarneclient/fast:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/build
-.PHONY : bjarneclient/fast
-
-# target to build an object file
-main.o:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/main.o
-.PHONY : main.o
-
-# target to preprocess a source file
-main.i:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/main.i
-.PHONY : main.i
-
-# target to generate assembly for a file
-main.s:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/main.s
-.PHONY : main.s
-
-# target to build an object file
-src/data/constructs/client/zookeeper/watch.o:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.o
-.PHONY : src/data/constructs/client/zookeeper/watch.o
-
-# target to preprocess a source file
-src/data/constructs/client/zookeeper/watch.i:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.i
-.PHONY : src/data/constructs/client/zookeeper/watch.i
-
-# target to generate assembly for a file
-src/data/constructs/client/zookeeper/watch.s:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/watch.s
-.PHONY : src/data/constructs/client/zookeeper/watch.s
-
-# target to build an object file
-src/data/constructs/client/zookeeper/zookeepers.o:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.o
-.PHONY : src/data/constructs/client/zookeeper/zookeepers.o
-
-# target to preprocess a source file
-src/data/constructs/client/zookeeper/zookeepers.i:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.i
-.PHONY : src/data/constructs/client/zookeeper/zookeepers.i
-
-# target to generate assembly for a file
-src/data/constructs/client/zookeeper/zookeepers.s:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeper/zookeepers.s
-.PHONY : src/data/constructs/client/zookeeper/zookeepers.s
-
-# target to build an object file
-src/data/constructs/client/zookeeperinstance.o:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.o
-.PHONY : src/data/constructs/client/zookeeperinstance.o
-
-# target to preprocess a source file
-src/data/constructs/client/zookeeperinstance.i:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.i
-.PHONY : src/data/constructs/client/zookeeperinstance.i
-
-# target to generate assembly for a file
-src/data/constructs/client/zookeeperinstance.s:
-	$(MAKE) -f CMakeFiles/bjarneclient.dir/build.make CMakeFiles/bjarneclient.dir/src/data/constructs/client/zookeeperinstance.s
-.PHONY : src/data/constructs/client/zookeeperinstance.s
 
 # Help Target
 help:
@@ -218,25 +145,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... bjarneclient"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... src/data/constructs/client/zookeeper/watch.o"
-	@echo "... src/data/constructs/client/zookeeper/watch.i"
-	@echo "... src/data/constructs/client/zookeeper/watch.s"
-	@echo "... src/data/constructs/client/zookeeper/zookeepers.o"
-	@echo "... src/data/constructs/client/zookeeper/zookeepers.i"
-	@echo "... src/data/constructs/client/zookeeper/zookeepers.s"
-	@echo "... src/data/constructs/client/zookeeperinstance.o"
-	@echo "... src/data/constructs/client/zookeeperinstance.i"
-	@echo "... src/data/constructs/client/zookeeperinstance.s"
 .PHONY : help
 
 
@@ -248,6 +162,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/marc/BjarneClient/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
