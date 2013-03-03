@@ -16,15 +16,38 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#include <string>
+using namespace std;
 #include "column.h"
 #include "inputvalidation.h"
 
 namespace cclient {
 namespace data {
-Column::Column()
+Column::Column(string *columFam, string *columnQual=NULL, string *columnVis=NULL)
 {
+	if (!IsEmpty(columFam))
+	{
+	    columnFamily = new char[ columFam->size()+1 ];
+	    memcpy(columnFamily,columFam->c_str(),columFam->size());
+	}
+	else
+	  columnFamily = new char[0];
 
+	if (!IsEmpty(columnQual))
+	{
+	    columnQualifier = new char[ columnQual->size()+1 ];
+	    memcpy(columnQualifier,columnQual->c_str(),columnQual->size());
+	}
+	else
+	columnQualifier = new char[0];
+
+	if (!IsEmpty(columnVis))
+	{
+	    columnVisibility = new char[ columnVis->size()+1 ];
+	    memcpy(columnVisibility,columnVis->c_str(),columnVis->size());
+	}
+	else
+	columnVisibility = new char[0];
 }
 
 Column::Column(const Column& other)

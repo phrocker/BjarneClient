@@ -13,6 +13,8 @@
 using namespace std;
 #include "../../TabletLocationObtainer.h"
 
+#include "../../../constructs/column.h"
+#include "../../../constructs/StructureDefinitions.h"
 #include "../../../constructs/client/Instance.h"
 #include "../../../constructs/security/AuthInfo.h"
 namespace cclient {
@@ -27,11 +29,16 @@ class MetaDataLocationObtainer : TabletLocationObtainer{
 public:
 	MetaDataLocationObtainer(AuthInfo *credentials,Instance *instance ) : creds(credentials), instance(instance)
 	{
-
+	  locationColumns = new set<Column*>();
+	  locationColumns->insert( new Column(&METADATA_CURRENT_LOCATION_COLUMN_FAMILY));
+	  locationColumns->insert( new Column(&METADATA_TABLET_COLUMN_FAMILY,&METADATA_PREV_ROW_COLUMN_CQ));
+	  columns = new vector<Column*>();
+	  
 	}
 	virtual ~MetaDataLocationObtainer();
 protected:
-      
+	set<Column*> *locationColumns;
+	vector<Column*> *columns;
 	Instance *instance;
 	AuthInfo* creds;
 };
