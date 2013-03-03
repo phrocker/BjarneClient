@@ -8,6 +8,7 @@
 #include "Connector.h"
 
 namespace cclient {
+namespace connector{
 namespace impl {
 
 Connector::Connector(
@@ -25,3 +26,4 @@ Connector::~Connector() {
 
 } /* namespace impl */
 } /* namespace cclient */
+}

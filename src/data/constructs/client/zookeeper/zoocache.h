@@ -24,6 +24,9 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
+#include <initializer_list>
+#include "../../inputvalidation.h"
 #include <zookeeper/zookeeper.hh>
 #include "zookeepers.h"
 #include "watch.h"
@@ -42,17 +45,30 @@ namespace data{
 
 
 
-class ZooCache : protected GetCallback
+class ZooCache : protected GetCallback,protected GetChildrenCallback
 {
 public:
     ZooCache(string zks, int timeout, Watch *watcher)
     {
 	zk = ZooKeepers::getSession(zks,timeout,NULL);
 	dataCache = new map<string,string>();
+	childCache = new map<string,vector<string>>();
+    }
+    
+    auto getChildren(const string path)
+    {
+	
+	boost::shared_ptr< Watch > watchers(watcher);
+	
+	boost::shared_ptr< GetCallback > callBack(this);
+	
+	zk->getChildren(path,watchers,callBack);
+	
+	return callBackCondition(path, childCache);
     }
   
   
-    string getPath(const string path)
+    auto getPath(const string path)
     {
 	boost::shared_ptr< Watch > watchers(watcher);
 	
@@ -60,19 +76,42 @@ public:
 	
 	zk->get(path,watchers,callBack);
 	
-	return callBackCondition(path);
+	return callBackCondition(path, dataCache);
+    }
+    
+    auto getLockData(const string path)
+    {
+	vector<string> children = getChildren(path);
+	if (IsEmpty(children))
+	{
+	    return NULL;
+	}
+	
+	std::sort(children.begin(),children.end();
+	
+	string lockNode = children.at(0);
+	
+	string lockPath = path;
+	
+	lockPath.append("/");
+	
+	lockPath.append(lockNode);
+	
+	return getPath(lockPath);
+	
+	
     }
   
 private:
   
-    string callBackCondition(string waitPath)
+    auto callBackCondition(string waitPath, auto *cache)
     {
 	do{
 	  pthread_cond_wait(&cacheUpdate,&cacheLock);	  
 	}
-	while( dataCache->find( waitPath ) == dataCache->end() );
+	while( cache->find( waitPath ) == cache->end() );
 	
-	return dataCache->find( waitPath );
+	return cache->find( waitPath );
     }
     
     void process(ReturnCode::type rc,const std::string &path,const std::string &data,const data::Stat & stat)
@@ -80,12 +119,22 @@ private:
 	dataCache->insert(path,data);
 	pthread_cond_broadcast(&cacheUpdate);
     }
+    
+    void process(ReturnCode::type rc, const std::string& path,
+                         const std::vector<std::string>& children,
+                         const data::Stat& stat)
+    {
+	childCache->insert(path,children);
+	pthread_cond_broadcast(&cacheUpdate);
+    }
 
     
     pthead_mutex_t cacheLock = PTHREAD_MUTEX_INITIALIZER; 
     pthread_cond_t cacheUpdate = PTHREAD_COND_INITIALIZER;
     
-    map<string,string> *dataCache;
+    auto *childCache;
+    
+    auto *dataCache;
     
     ZooKeeper *zk;
     Watch *watcher;

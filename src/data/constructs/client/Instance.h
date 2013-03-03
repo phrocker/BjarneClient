@@ -13,9 +13,6 @@
 
 using namespace std;
 
-#define ZROOT "/accumulo"
-#define ZINSTANCES "/instances"
-
 
 #include "../../../interconnect/Master.h"
 #include "../../../connector/Connector.h"
@@ -37,12 +34,12 @@ class Instance
 {
 public:
     virtual string getRootTabletLocation() = 0;
-    virtual list<string> getMasterLocations = 0;
+    virtual vector<string> getMasterLocations = 0;
     virtual string getInstanceId() = 0;
     virtual string getInstanceName() = 0;
     //virtual string getZooKeepers() = 0;
     virtual Connector *getConnector(AuthInfo *authoration) = 0;
-    virtual Configuration &getConfiguration() = 0;
+    virtual Configuration *getConfiguration() = 0;
     virtual void setConfiguration(Configuration *conf) = 0;
     virtual Master * getMasterInterconnects();
     virtual ~Instance();
