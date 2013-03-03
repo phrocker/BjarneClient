@@ -8,13 +8,18 @@
 #ifndef METADATALOCATIONOBTAINER_H_
 #define METADATALOCATIONOBTAINER_H_
 
+#include <set>
+#include <vector>
+using namespace std;
 #include "../../TabletLocationObtainer.h"
 
+#include "../../../constructs/client/Instance.h"
 #include "../../../constructs/security/AuthInfo.h"
 namespace cclient {
 namespace impl {
 
 using namespace cclient::data;
+using namespace cclient::data::security;
 
 
 class MetaDataLocationObtainer : TabletLocationObtainer{
@@ -26,7 +31,8 @@ public:
 	}
 	virtual ~MetaDataLocationObtainer();
 protected:
-	ZookeeperInstance *instance;
+      
+	Instance *instance;
 	AuthInfo* creds;
 };
 
