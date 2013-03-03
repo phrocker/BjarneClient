@@ -22,6 +22,8 @@
 
 #include <iostream>
 #include <string.h>
+#include <stdio.h>
+#include <cstring>
 using namespace std;
 
 
@@ -57,7 +59,7 @@ static auto IsEmpty(char *t)->  decltype(NULL !=t, bool()){
 }
 
 template <typename... T>
-static typename std::enable_if<(sizeof...(T) == 0), size_t>::type
+bool
 IsEmpty() {
   
   return false;
