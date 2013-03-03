@@ -24,16 +24,36 @@
 #include <iostream>
 #include <string>
 #include <zookeeper/zookeeper.hh>
+#include "./zookeeper/zookeepers.h"
+#include "./zookeeper/zoocache.h"
+#include "../inputvalidation.h"
+#include "../../exceptions/ClientException.h"
+
 using namespace org::apache::zookeeper;
 using namespace std;
-namespace cclient {
-namespace impl {
+namespace cclient{
+namespace data{
+  namespace zookeeper{
   using namespace cclient::data;
+  using namespace cclient::exceptions;
 class ZookeeperInstance : public Instance
 {
 public:
     ZookeeperInstance(string in, string inId, string zks) : instanceId(inId) , instanceName(in), zookeeperList(zks)
     {
+    }
+    
+    ZookeeperInstance(string in, string zks, uint16_t zkTimeoutMs) :  instanceName(in), zookeeperList(zks), timeoutMs(zkTimeoutMs)
+    {
+      if (IsEmpty(in) || IsEmpty(zks) )
+      {
+	  throw ClientException("instance name or zookeeper list is empty");
+      }
+      
+      myZooCache = new ZooCache(zks,zkTimeoutMs,NULL);
+      
+      getInstanceId();
+      
     }
     
     string getRootTabletLocation();
@@ -47,11 +67,20 @@ public:
     ~ZookeeperInstance();
     
 protected:
+  
+  
+    ZooCache *myZooCache;
+  
+    // load the cache
+  
     string instanceId;
     string instanceName;
     string zookeeperList;
     
+    uint32_t timeoutMs;
+    
 };
+}
 }
 }
 
