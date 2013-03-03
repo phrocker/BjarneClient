@@ -38,6 +38,8 @@ namespace interconnect{
 class Master : public ClientInterface {
 public:
 	Master(const string host, const int port);
+	Master(shared_ptr<TTransport> transport);
+	
 	
 	virtual ~Master();
 protected:

@@ -14,6 +14,7 @@
 
 #include <transport/TServerSocket.h>
 #include <transport/TServerTransport.h>
+
 #include <transport/TTransport.h>
 #include <transport/TSocket.h>
 #include <server/TNonblockingServer.h>
@@ -44,10 +45,26 @@ using namespace std;
 namespace interconnect{
   
   using namespace cclient::exceptions;
+  
+Master::Master(shared_ptr<TTransport> transporty)
+{
+      shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
+	
+
+	client = new accumulo::client::ClientServiceClient(protocolPtr);
+	tserverClient = new accumulo::tabletserver::TabletClientServiceClient(
+			protocolPtr);
+
+	transport = transporty;
+
+	client->getZooKeepers(zookeepers);
+	client->getInstanceId(instanceId);
+}
 Master::Master(
 		const string host, const int port) : ::ClientInterface(host,port){
   
 	shared_ptr<TTransport> serverTransport(new TSocket(host, port));
+	
 	shared_ptr<TTransport> transporty(
 			new TFramedTransport(serverTransport));
 	shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
