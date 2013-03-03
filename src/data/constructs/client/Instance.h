@@ -13,9 +13,8 @@
 
 using namespace std;
 
-
 #include "../../../interconnect/Master.h"
-#include "../../../connector/Connector.h"
+#include "Connector.h"
 #include "../security/AuthInfo.h"
 #include "../configuration/Configuration.h"
 
@@ -23,28 +22,28 @@ using namespace std;
 #include <list>
 using namespace std;
 
-namespace cclient
-{
-namespace data
-{
+namespace cclient {
+namespace data {
 
 using namespace cclient::impl;
-
-class Instance
-{
+using namespace cclient::connector::impl;
+using namespace cclient::data::security;
+using namespace interconnect;
+class Instance {
 public:
-    virtual string getRootTabletLocation() = 0;
-    virtual vector<string> getMasterLocations = 0;
-    virtual string getInstanceId() = 0;
-    virtual string getInstanceName() = 0;
-    //virtual string getZooKeepers() = 0;
-    virtual Connector *getConnector(AuthInfo *authoration) = 0;
-    virtual Configuration *getConfiguration() = 0;
-    virtual void setConfiguration(Configuration *conf) = 0;
-    virtual Master * getMasterInterconnects();
-    virtual ~Instance();
+	virtual string getRootTabletLocation() = 0;
+	virtual vector<string> getMasterLocations = 0;
+	virtual string getInstanceId() = 0;
+	virtual string getInstanceName() = 0;
+	//virtual string getZooKeepers() = 0;
+	virtual Connector *getConnector(AuthInfo *authoration) = 0;
+	virtual Configuration *getConfiguration() = 0;
+	virtual void setConfiguration(Configuration *conf) = 0;
+	virtual Master * getMasterInterconnects();
+	virtual ~Instance();
 };
 
 } /* namespace impl */
 } /* namespace cclient */
 #endif /* INSTANCE_H_ */
+
