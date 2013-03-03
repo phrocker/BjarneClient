@@ -23,15 +23,77 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include <zookeeper/zookeeper.hh>
+#include "zookeepers.h"
+#include "watch.h"
+
 using namespace org::apache::zookeeper;
-using namespace org::apache::zookeeper::proto;
 using namespace std;
 
-class ZooCache
+#include <pthread.h>
+
+
+namespace cclient{
+namespace data{
+  namespace zookeeper{
+
+
+
+
+
+class ZooCache : protected GetCallback
 {
-    WatcherEvent event;
+public:
+    ZooCache(string zks, int timeout, Watch *watcher)
+    {
+	zk = ZooKeepers::getSession(zks,timeout,NULL);
+	dataCache = new map<string,string>();
+    }
+  
+  
+    string getPath(const string path)
+    {
+	boost::shared_ptr< Watch > watchers(watcher);
+	
+	boost::shared_ptr< GetCallback > callBack(this);
+	
+	zk->get(path,watchers,callBack);
+	
+	return callBackCondition(path);
+    }
+  
+private:
+  
+    string callBackCondition(string waitPath)
+    {
+	do{
+	  pthread_cond_wait(&cacheUpdate,&cacheLock);	  
+	}
+	while( dataCache->find( waitPath ) == dataCache->end() );
+	
+	return dataCache->find( waitPath );
+    }
+    
+    void process(ReturnCode::type rc,const std::string &path,const std::string &data,const data::Stat & stat)
+    {
+	dataCache->insert(path,data);
+	pthread_cond_broadcast(&cacheUpdate);
+    }
+
+    
+    pthead_mutex_t cacheLock = PTHREAD_MUTEX_INITIALIZER; 
+    pthread_cond_t cacheUpdate = PTHREAD_COND_INITIALIZER;
+    
+    map<string,string> *dataCache;
+    
+    ZooKeeper *zk;
+    Watch *watcher;
+    
 };
 
+  }
+}
+}
 #endif // ZOOCACHE\_H
 

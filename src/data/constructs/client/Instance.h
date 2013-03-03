@@ -13,6 +13,9 @@
 
 using namespace std;
 
+#define ZROOT "/accumulo"
+#define ZINSTANCES "/instances"
+
 
 #include "../../../interconnect/Master.h"
 #include "../../../connector/Connector.h"
