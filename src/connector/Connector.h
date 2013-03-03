@@ -15,9 +15,9 @@ using namespace std;
 #include "../data/constructs/security/AuthInfo.h"
 #include "../data/constructs/security/Authorizations.h"
 namespace cclient {
+namespace connector {
 namespace impl {
 using namespace interconnect;
-using namespace cclient::thrift;
 using namespace cclient::data::security;
 class Connector {
 public:
@@ -33,4 +33,5 @@ protected:
 
 } /* namespace impl */
 } /* namespace cclient */
+}
 #endif /* CONNECTOR_H_ */
