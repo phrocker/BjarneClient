@@ -11,7 +11,7 @@ namespace cclient {
 namespace impl {
 
 MetaDataLocationObtainer::~MetaDataLocationObtainer() {
-	// TODO Auto-generated destructor stub
+	
 }
 
 } /* namespace impl */
