@@ -16,21 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include "zookeeperinstance.h"
+#include "Instance.h"
+#include "./zookeeperinstance.h"
+#include "./zookeeper/zookeepers.h"
+#include "./zookeeper/zoocache.h"
 
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <list>
 
 namespace cclient{
-  namespace impl {
+namespace data{
+  namespace zookeeper{
 
     using namespace std;
     
-     ZookeeperInstance::ZookeeperInstance()
-     {
-     }
     string ZookeeperInstance::getRootTabletLocation()
     {
     }
@@ -38,7 +39,37 @@ namespace cclient{
     list<string> ZookeeperInstance::getMasterLocations()
     {
     }
-    string getInstanceId();
+    
+    string ZookeeperInstance::getInstanceId()
+    {
+      if (IsEmpty(instanceId))
+      {
+	  stringstream instancePathName;
+	  instancePathName <<  ZROOT << ZINSTANCES << "/" << instanceName;
+	  string dataPath = myZooCache->getPath(instancePathName.str());
+	  
+	  if (IsEmpty(&dataPath))
+	  {
+	    throw ClientException("Instance name does not exist within zookeeper");
+	  }
+	  
+	  instanceId = dataPath;
+	  
+	  instancePathName.clear();
+	  
+	  instancePathName <<  ZROOT << "/" << instanceId;
+	  
+	  dataPath = myZooCache->getPath(instancePathName.str());
+	  
+	  if (IsEmpty(&dataPath))
+	  {
+	    throw ClientException("Instance Id does not exist within zookeeper");
+	  }
+	  
+	  return instanceId;
+	  
+      }
+    }
     string getInstanceName();
     //virtual string getZooKeepers() = 0;
     Connector *getConnector(AuthInfo *authoration);
@@ -47,4 +78,5 @@ namespace cclient{
     Master * getMasterInterconnects();
     ~ZookeeperInstance();
   }
+}
 }
