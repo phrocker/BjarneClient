@@ -48,7 +48,7 @@ static auto IsEmpty(T *t) -> typename std::enable_if<has_size<T>::value ==1, boo
 
 template <typename T>
 static auto IsEmpty(T *t) -> typename std::enable_if<not has_size<T>::value , bool>::type {
-  return (NULL == t || false);
+  return (NULL == t );
 }
 
 
@@ -61,6 +61,16 @@ static typename std::enable_if<(sizeof...(T) == 0), size_t>::type
 IsEmpty() {
   
   return false;
+}
+
+
+static bool isValidPort(uint32_t port)
+{
+    if (port < 1024 || port >65535)
+    {
+      return false;
+    }
+    return true;
 }
 
 static vector<std::string> split(string str, char delim)

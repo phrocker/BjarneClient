@@ -167,14 +167,30 @@ namespace data{
 	      
 	      if (!IsEmpty(serverId) && serverId == "master")
 	      {
-		servers.insert( ServerConnection("",0,0));
+		ConnectorService conn(serverId);
+		
+		const uint16_t tserverPort = (uint16_t)myConfiguration->getLong(TSERVER_PORT_OPT,TSERVER_DEFAULT_PORT);
+			
+		if (!isValidPort(tserverPort))
+		{
+		  throw IllegalArgumentException("Invalid port");
+		}
+		
+		const uint32_t timeout = myConfiguration->getLong(GENERAL_RPC_TIMEOUT_OPT,GENERAL_RPC_TIMEOUT);
+		
+		servers.insert( ServerConnection(conn.getAddressString(interconnect::INTERCONNECT_TYPES::TSERV_CLIENT),tserverPort,timeout));
+		
+		
+		
 	      }
 	    
 	  }
 	  
+	  bool opened = false;
 	  
+	  std::pair<string,shared_ptr<TTransport>> conn = CLUSTER_COORDINATOR.getTransporter(&servers,true);
 	
-	return new Master(this);
+	  return new Master(conn.second);
     }
     ~ZookeeperInstance();
   }
