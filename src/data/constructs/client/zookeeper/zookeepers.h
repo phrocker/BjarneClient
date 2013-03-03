@@ -37,6 +37,15 @@ using namespace std;
 
 #define  TIME_BETWEEN_CONNECT_CHECKS_MS  100
 #define  TOTAL_CONNECT_TIME_WAIT_MS  10 * 1000
+
+#define ZROOT "/accumulo"
+#define ZINSTANCES "/instances"
+#define ZMASTERS "/masters"
+#define ZMASTER_LOCK "/masters/lock"
+#define ZROOT_TABLET "/root_tablet"
+#define ZROOT_TABLET_LOCATION "/root_tablet/location"
+
+
 namespace cclient{
 namespace data{
   namespace zookeeper{
