@@ -66,6 +66,17 @@ public:
 
 		return true;
 	}
+	
+	void setTableId(string id)
+	{
+	    tableId = id;
+	}
+	
+	string getTableId()
+	{
+	  return tableId;
+	}
+	
 
 protected:
 	void setPrevEndRow(Value *prevEndRow) {

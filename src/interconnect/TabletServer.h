@@ -22,7 +22,10 @@ using namespace std;
 namespace interconnect {
   
    using namespace cclient::exceptions;
+   using namespace cclient::data;
+   using namespace cclient::impl;
    using namespace accumulo::data;
+   
   
 class TabletServer : public Master {
 public:
@@ -34,9 +37,9 @@ public:
 	}
 	
 	static bool getBatchFromServer(AuthInfo *credentials, Range *range, KeyExtent *extent, string server, map<Key,Value> *results,
-				       set<Column> *fetchedColumns, uint32_t size, Authorizations, boolean retry, Configuration *conf)
+				       set<Column> *fetchedColumns, uint32_t size, Authorizations *auths, bool retry, Configuration *conf)
 	{
-	  if (IsEmpty(server))
+	  if (IsEmpty(&server))
 	  {
 	      throw ClientException("Invalid server name");
 	      
@@ -64,10 +67,8 @@ public:
 		vector<IterInfo*> list;
 		
 		map<string, map<string,string> map;
-		
-		ScanState *state = new ScanState(
-		
-		
+				
+		ScanState *state = new ScanState(credentials,extent->getTableId(),auths,
 		
 		
 		
@@ -77,3 +78,4 @@ public:
 
 }
 #endif /* TABLETSERVER_H_ */
+
