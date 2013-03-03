@@ -33,11 +33,11 @@ using namespace std;
 
 
 //#include "MasterClient.h"
-#include "ClientService.h"
-#include "TabletClientService.h"
-#include "data/Mutation.h"
-#include "writer/Sink.h"
-#include "writer/MutationCollector.h"
+#include "../ClientService.h"
+#include "../TabletClientService.h"
+#include "../data/constructs/Mutation.h"
+#include "../writer/Sink.h"
+#include "../writer/MutationCollector.h"
 
 namespace cclient {
 

@@ -48,6 +48,14 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   ENDIF()
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
+IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  INCLUDE("/home/marc/BjarneClient/build/test/cmake_install.cmake")
+  INCLUDE("/home/marc/BjarneClient/build/src/data/constructs/client/zookeeper/cmake_install.cmake")
+  INCLUDE("/home/marc/BjarneClient/build/src/data/constructs/client/zookeeper/cmake_install.cmake")
+
+ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
+
 IF(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 ELSE(CMAKE_INSTALL_COMPONENT)

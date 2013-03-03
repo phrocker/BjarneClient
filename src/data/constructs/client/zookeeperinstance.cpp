@@ -24,6 +24,9 @@
 #include "../../../connector/Connector.h"
 #include "../../../connector/impl/AccumuloConnector.h"
 
+#include "../../../interconnect/InterConnect.h"
+
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -33,6 +36,8 @@
 namespace cclient{
 namespace data{
   namespace zookeeper{
+    
+    using namespace interconnect;
     
     using namespace cclient::connector::impl;
     using namespace cclient::impl;
@@ -146,7 +151,30 @@ namespace data{
     }
     Master * ZookeeperInstance::getMasterInterconnects()
     {
-	return NULL;
+	  stringstream instancePathName;
+	  instancePathName <<  getRoot() << TSERVERS;
+	  vector<string> children  = myZooCache->getChildren(instancePathName.str());
+	  
+	  vector<ServerConnection> servers;
+	  
+	  for(string child : children)
+	  {
+	    
+	      instancePathName.clear();
+	      // get tserver
+	      instancePathName << getRoot() << TSERVERS << "/" << child;
+	      string serverId  = myZooCache->getLockData(instancePathName.str());
+	      
+	      if (!IsEmpty(serverId) && serverId == "master")
+	      {
+		servers.insert( ServerConnection("",0,0));
+	      }
+	    
+	  }
+	  
+	  
+	
+	return new Master(this);
     }
     ~ZookeeperInstance();
   }

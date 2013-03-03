@@ -15,5 +15,8 @@ Environment Profile=
 Extra Arguments=
 Install Directory=file:///usr/local
 
+[MakeBuilder]
+Additional Options=-I/usr/local/include/thrift -lthrift -lboost_system
+
 [Project]
 VersionControlSupport=kdevgit
