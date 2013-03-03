@@ -19,11 +19,16 @@ namespace connector {
 namespace impl {
 using namespace interconnect;
 using namespace cclient::data::security;
+using namespace cclient::data;
+using namespace scanners;
+
 class Connector {
+
 public:
 	Connector(Instance *instance, string user, string password);
 
-	virtual Scanner *createScanner(string tableName, Authorizations *authorizations, int numQueryThreads) = 0;
+	virtual ScannerBase *createScanner(string tableName,
+			Authorizations *authorizations, int numQueryThreads) = 0;
 
 	virtual ~Connector();
 protected:
