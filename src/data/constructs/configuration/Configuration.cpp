@@ -36,12 +36,35 @@ Configuration::set(string name, string value)
 
 string Configuration::get(string name)
 {
+     return get(name,NULL);
+
+}
+
+string Configuration::get(string name, string def)
+{
     if (configurationMap.find(name) == configurationMap.end())
     {
-        return NULL;
+        return def;
     }
     else
         return configurationMap[ name ];
+
+}
+
+uint32_t Configuration::getLong(string name)
+{
+     return get(name,0);
+
+}
+
+uint32_t Configuration::getLong(string name, uint32_t def)
+{
+    if (configurationMap.find(name) == configurationMap.end())
+    {
+        return def;
+    }
+    else
+        return atol(configurationMap[ name ]);
 
 }
 
