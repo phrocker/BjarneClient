@@ -26,6 +26,7 @@ using namespace std;
 #include <concurrency/ThreadManager.h>
 
 #include <pthread.h>
+#include <sys/time.h>
 
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
@@ -74,14 +75,17 @@ public:
 
 EnumParser<INTERCONNECT_TYPES>::EnumParser()
 {
-    enumMap["GC_CLIENT"] = INTERCONNECT_TYPES::GC_CLIENT;
-    enumMap["gc_client"] = INTERCONNECT_TYPES::GC_CLIENT;
+    enumMap["TSERV_CLIENT"] = INTERCONNECT_TYPES::TSERV_CLIENT;
+    enumMap["tserv_client"] = INTERCONNECT_TYPES::TSERV_CLIENT;
+    enumMap["tserver"] = INTERCONNECT_TYPES::TSERV_CLIENT;
     
     enumMap["MASTER_CLIENT"] = INTERCONNECT_TYPES::MASTER_CLIENT;
     enumMap["master_client"] = INTERCONNECT_TYPES::MASTER_CLIENT;
+    enumMap["master"] = INTERCONNECT_TYPES::MASTER_CLIENT;
     
     enumMap["GC_CLIENT"] = INTERCONNECT_TYPES::GC_CLIENT;
     enumMap["gc_client"] = INTERCONNECT_TYPES::GC_CLIENT;
+    enumMap["gc"] = INTERCONNECT_TYPES::GC_CLIENT;
 }
 
 static EnumParser<INTERCONNECT_TYPES> TYPE_PARSER;
@@ -186,6 +190,7 @@ public:
       return timeout;
     }
     
+    
     ServerConnection &operator=(const ServerConnection &rhs) {
       
 	host = rhs.host;
@@ -219,6 +224,93 @@ public:
       delete cache;
   }
   
+  void freeTransport(shared_ptr<TTransport> transport)
+  {
+      if (IsEmpty(transport))
+      {
+	  return;
+      }
+      
+      bool haveCache = false;
+      
+      CachedTransport *cachedTransport = dynamic_cast<CachedTransport>(&*transport);
+      
+      vector<CachedTransport*> *closeList = new vector<CachedTransport*>();
+      pthread_mutex_lock(&cacheLock);
+      
+      
+      ServerConnection cacheKey = cachedTransport->getCacheKey();
+      
+      vector<CachedTransport*> *cachedConnections =  &cache[cacheKey];
+      vector<CachedTransport*>::iterator cacheIter = cachedConnections->begin();
+      
+      timeval time;
+      gettimeofday(&time, NULL);
+      long millis = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+      for( ; cacheIter != cachedConnections->end(); cacheIter++)
+      {
+	if ( **cacheIter == *cachedTransport)
+	{
+	    if (cachedTransport->hasError())
+	    {
+	      closeList->insert(cachedTransport);
+	      cacheIter = cachedConnections->erase( cacheIter );
+	      
+	      uint32_t errors = 0;
+	      
+	      if (errorCount.find(cacheKey) != errorCount.end())
+	      {
+		  errors = errorCount.at(cacheKey);
+	      }
+	      
+	      errors++;
+	      
+	      errorCount[ cacheKey ] = errors;
+	      
+	      
+	      
+	      
+	      errorTime[ cacheKey ] = millis;
+	      
+	      
+	      if (errors > ERROR_THRESHOLD && badServers.find(cacheKey) == badServers.end())
+	      {
+		  badServers.insert(cacheKey);
+	      }
+	      
+	      
+	      
+	    }else
+	    {
+	    }
+	    (*cacheIter)->setReturnTime(millis);
+	    (*cacheIter)->reserve(false);
+	    haveCache = true;
+	    break;
+	  
+	}
+      }
+      
+      if (cachedTransport->hasError())
+      {
+	  cacheIter = cachedConnections->begin();
+	  for( ; cacheIter != cachedConnections->end(); cacheIter++)
+	  {
+	      if ( !(*cacheIter)->isReserved())
+	      {
+		  closeList->insert(*cacheIter);
+		  cacheIter = cachedConnections->erase( cacheIter );
+	      }
+	  }
+	  
+      }
+      
+      
+      
+      pthread_mutex_unlock(&cacheLock);
+      
+  }
+  
   std::pair<string,shared_ptr<TTransport>> getTransporter(const vector<ServerConnection> *servers, const bool preferCachedConnection)
   {
     
@@ -239,14 +331,14 @@ public:
 	      
 	      for(ServerConnection conn : serverSet)
 	      {
-		  vector<CachedTransport> cachedConnections =  cache[conn];
-		  for(CachedTransport cacheTransport : cachedConnections)
+		  vector<CachedTransport> *cachedConnections =  &cache[conn];
+		  for(CachedTransport *cacheTransport : cachedConnections)
 		  {
-		      if (!cacheTransport.isReserved())
+		      if (!cacheTransport->isReserved())
 		      {
-			cacheTransport.reserve();
+			cacheTransport->reserve();
 			pthread_mutex_unlock(&cacheLock);
-			return std::make_pair<string,shared_ptr<TTransport>>(conn.getHost() + ":" + conn.getPort(), cacheTransport.getTransport());
+			return std::make_pair<string,shared_ptr<TTransport>>(conn.getHost() + ":" + conn.getPort(), cacheTransport->getTransport());
 		      }
 		  }
 	      }
@@ -267,16 +359,16 @@ public:
 	  conn = &serverPool.at(index);
 	  if (!preferCachedConnection) {
 	    pthread_mutex_lock(&cacheLock);
-	    vector<CachedTransport> cachedConnections =  cache[*conn];
+	    vector<CachedTransport> *cachedConnections =  cache[*conn];
 	    if (!IsEmpty(cachedConnections))
 	    {
-		for(CachedTransport cacheTransport : cachedConnections)
+		for(CachedTransport *cacheTransport : cachedConnections)
 		{
-		    if (!cacheTransport.isReserved())
+		    if (!cacheTransport->isReserved())
 		    {
-			    cacheTransport.reserve();
+			    cacheTransport->reserve();
 			    pthread_mutex_unlock(&cacheLock);
-			    return std::make_pair<string,shared_ptr<TTransport>>(conn->getHost() + ":" + conn->getPort(), cacheTransport.getTransport());
+			    return std::make_pair<string,shared_ptr<TTransport>>(conn->getHost() + ":" + conn->getPort(), cacheTransport->getTransport());
 		    }
 		}
 	    }
@@ -325,7 +417,7 @@ protected:
   
   pthead_mutex_t cacheLock = PTHREAD_MUTEX_INITIALIZER; 
   
-  map<ServerConnection,vector<CachedTransport>> *cache;
+  map<ServerConnection,vector<CachedTransport*>> *cache;
   map<ServerConnection,uint32_t> errorCount;
   map<ServerConnection,uint32_t> errorTime;
   set<ServerConnection> badServers;
@@ -334,7 +426,7 @@ protected:
 class CachedTransport : public TTransport
 {
 public:
-  CachedTransport(shared_ptr<TTransport> transport, ServerConnection key) : ioCount(0), lastCount(-1), reserved(false), threadName(""),hasError(false)
+  CachedTransport(shared_ptr<TTransport> transport, ServerConnection key) : ioCount(0), lastCount(-1), reserved(false), threadName(""),hasError(false), lastReturnTime(0)
   {
     cacheKey = key;
     
@@ -366,18 +458,48 @@ public:
       ioCount++;
   }
   
-  shared_ptr<TTransport> getTransport()
+  
+  bool hasError()
   {
-    return serverTransport;
+      return hasError;
   }
   
+  ServerConnection &getCacheKey()
+  {
+      return cacheKey;
+  }
+  
+  shared_ptr<TTransport> getTransport()
+  {
+    return shared_ptr<TTransport>(this);
+  }
+  
+  bool operator ==(const CachedTransport *rhs) const {
+		return *this == *rhs;
+	}
+  
+  bool operator==(const CachedTransport &rhs) const
+  {
+    return threadName == rhs.threadName && cacheKey == rhs.cacheKey;
+  }
   
   bool isOpen()
   {
       return serverTransport->isOpen();
   }
   
+  void setReturnTime(uint64_t t)
+  {
+    lastReturnTime = t;
+  }
+  
+  uint64_t getLastReturnTime()
+  {
+      return lastReturnTime;
+  }
+  
 protected:
+  
   
     bool hasError;
     volatile string threadName;
@@ -387,6 +509,7 @@ protected:
     
     uint16_32 ioCount;
     int16_t lastCount;
+    uint64_t lastReturnTime;
     ServerConnection cacheKey;
     shared_ptr<TTransport> serverTransport;
 };
