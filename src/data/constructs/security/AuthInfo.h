@@ -24,6 +24,22 @@ public:
 			 string instanceId);
 
 	virtual ~AuthInfo();
+	
+	string getUserName()
+	{
+	    return user;
+	}
+	
+	string getPassword()
+	{
+	    return password;
+	}
+	
+	string getInstanceId()
+	{
+	    return instanceId;
+	}
+	
 protected:
 	string user;
 	string instanceId;

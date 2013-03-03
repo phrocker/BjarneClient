@@ -28,12 +28,14 @@
 #include "./zookeeper/zoocache.h"
 #include "../inputvalidation.h"
 #include "../../exceptions/ClientException.h"
+#include "../configuration/Configuration.h"
 
 using namespace org::apache::zookeeper;
 using namespace std;
 namespace cclient{
 namespace data{
   namespace zookeeper{
+  using namespace cclient::impl;
   using namespace cclient::data;
   using namespace cclient::exceptions;
 class ZookeeperInstance : public Instance
@@ -43,7 +45,7 @@ public:
     {
     }
     
-    ZookeeperInstance(string in, string zks, uint16_t zkTimeoutMs) :  instanceName(in), zookeeperList(zks), timeoutMs(zkTimeoutMs)
+    ZookeeperInstance(string in, string zks, uint16_t zkTimeoutMs, Configuration *conf) :  instanceName(in), zookeeperList(zks), timeoutMs(zkTimeoutMs), myConfiguration(conf)
     {
       if (IsEmpty(in) || IsEmpty(zks) )
       {
@@ -61,16 +63,19 @@ public:
     string getInstanceId();
     string getInstanceName();
     Connector *getConnector(AuthInfo *authoration);
-    Configuration &getConfiguration();
+    Configuration *getConfiguration();
     void setConfiguration(Configuration *conf);
     Master * getMasterInterconnects();
     ~ZookeeperInstance();
     
 protected:
   
+    string getRoot();
   
     ZooCache *myZooCache;
   
+    Configuration *myConfiguration;
+    
     // load the cache
   
     string instanceId;

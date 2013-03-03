@@ -42,25 +42,41 @@ public:
 
 
 template <typename T>
-auto IsEmpty(T *t) -> typename std::enable_if<has_size<T>::value ==1, bool>::type {
+static auto IsEmpty(T *t) -> typename std::enable_if<has_size<T>::value ==1, bool>::type {
   return (NULL == t || t->size() == 0);
 }
 
 template <typename T>
-auto IsEmpty(T *t) -> typename std::enable_if<not has_size<T>::value , bool>::type {
+static auto IsEmpty(T *t) -> typename std::enable_if<not has_size<T>::value , bool>::type {
   return (NULL == t || false);
 }
 
 
-auto IsEmpty(char *t)->  decltype(NULL !=t, bool()){
+static auto IsEmpty(char *t)->  decltype(NULL !=t, bool()){
   return (NULL == t  || strlen(t) == 0);
 }
 
 template <typename... T>
-typename std::enable_if<(sizeof...(T) == 0), size_t>::type
+static typename std::enable_if<(sizeof...(T) == 0), size_t>::type
 IsEmpty() {
   
   return false;
+}
+
+static vector<std::string> split(string str, char delim)
+{
+
+  std::stringstream test(str);
+  std::string segment;
+  std::vector<std::string> seglist;
+
+  while(std::getline(test, segment, delim))
+  {
+      
+    seglist.push_back(segment);
+  }
+  
+  return seglist;
 }
 
 
