@@ -8,10 +8,10 @@
 #include "TabletLocation.h"
 
 namespace cclient {
-namespace impl {
+namespace data {
 
 TabletLocation::TabletLocation() {
-	// TODO Auto-generated constructor stub
+// 	// TODO Auto-generated constructor stub
 
 }
 

@@ -118,6 +118,7 @@ public:
 		authenticated_password = password;
 
 	}
+	
 
 	uint8_t write(
 			MutationCollector &writer) {
