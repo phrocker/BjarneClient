@@ -30,7 +30,7 @@ AccumuloConnector::AccumuloConnector(
 	myInstance = instance;
 	credentials = new AuthInfo(user,password,instance->getInstanceId());
 	password.clear();
-	Master *master = instance->getMasterInterconnects();
+	MasterConnect *master = instance->getMasterInterconnects();
 	// an exception will be thrown in the event that this does not work.
 	master->authenticate(user,password);
 	

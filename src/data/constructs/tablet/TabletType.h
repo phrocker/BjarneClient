@@ -1,6 +1,6 @@
 /**
-  * Hello, this is BjarneClient, a free and open implementation of Accumulo
-  * and big table. This is meant to be the client that accesses Accumulo
+  * Hello, this is BjarneClient, a free and open implementation of Accumulo 
+  * and big table. This is meant to be the client that accesses Accumulo 
   * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
   * 2013 -- Marc Delta Poppa @ accumulo.net
   *
@@ -18,5 +18,37 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   **/
 
-#include "zookeepers.h"
+#ifndef TABLETTYPE_H_
+#define TABLETTYPE_H_
 
+
+#include "../KeyExtent.h"
+
+
+
+
+using namespace cclient::data;
+
+namespace cclient{
+namespace data{
+namespace tserver{
+
+enum TabletType{ ROOT, METADATA, USER };
+
+
+constexpr static TabletType fromExtent(KeyExtent *extent)
+{
+	if (extent == ROOT_TABLET_EXTENT)
+	{
+		return ROOT;
+	}
+	if (extent->getTableId() == METADATA_TABLE_ID)
+	{
+		return METADATA;
+	}
+	return USER;
+}
+
+}}}
+
+#endif /* TABLETTYPE_H_ */
