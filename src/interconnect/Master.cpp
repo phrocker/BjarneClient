@@ -1,11 +1,24 @@
-/*
- * Master.cpp
+/**
+ * Hello, this is BjarneClient, a free and open implementation of Accumulo
+ * and big table. This is meant to be the client that accesses Accumulo
+ * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
+ * 2013 -- Marc Delta Poppa @ accumulo.net
  *
- *  Created on: Dec 8, 2012
- *      Author: marc
- */
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ **/
 #include "Master.h"
+#include "../data/constructs/security/AuthInfo.h"
 #include <string>
 
 #include <protocol/TBinaryProtocol.h>
@@ -42,31 +55,23 @@ using boost::shared_ptr;
 #include "../data/exceptions/ClientException.h"
 
 using namespace std;
-namespace interconnect{
-  
-  using namespace cclient::exceptions;
-  
-Master::Master(shared_ptr<TTransport> transporty)
+namespace interconnect
 {
-      shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
-	
 
-	client = new accumulo::client::ClientServiceClient(protocolPtr);
-	tserverClient = new accumulo::tabletserver::TabletClientServiceClient(
-			protocolPtr);
+using namespace cclient::exceptions;
+using namespace cclient::data::security;
 
-	transport = transporty;
-
-	client->getZooKeepers(zookeepers);
-	client->getInstanceId(instanceId);
+MasterConnect::MasterConnect(shared_ptr<TTransport> transporty)
+{
+	setTransport(transporty);
 }
-Master::Master(
-		const string host, const int port) : ::ClientInterface(host,port){
-  
+MasterConnect::MasterConnect(const string host, const int port) :
+		::ClientInterface(host, port)
+{
+
 	shared_ptr<TTransport> serverTransport(new TSocket(host, port));
-	
-	shared_ptr<TTransport> transporty(
-			new TFramedTransport(serverTransport));
+
+	shared_ptr<TTransport> transporty(new TFramedTransport(serverTransport));
 	shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
 	transporty->open();
 
@@ -81,27 +86,53 @@ Master::Master(
 
 }
 
-void Master::authenticate(string username, string password)
+void MasterConnect::authenticate(AuthInfo *credentials)
 {
-  accumulo::cloudtrace::TInfo tinfo;
-  accumulo::security::AuthInfo creds;
-  string str = "";
 
-  creds.instanceId = instanceId;
-  creds.user = username;
-  creds.password = password;
+	string username = credentials->getUserName();
+	string password = credentials->getPassword();
+	accumulo::cloudtrace::TInfo tinfo;
+	accumulo::security::AuthInfo creds;
+	string str = "";
 
-  tinfo.parentId = 0;
-  tinfo.traceId = rand();
-  if (!client->authenticateUser(tinfo, creds, username, password)) {
-	  throw ClientException("Invalid username");
-  }
-  authenticated = true;
-  authenticated_user = username;
-  authenticated_password = password;
+	creds.instanceId = instanceId;
+	creds.user = username;
+	creds.password = password;
+
+	tinfo.parentId = 0;
+	tinfo.traceId = rand();
+	if (!client->authenticateUser(tinfo, creds, username, password))
+	{
+		throw ClientException("Invalid username");
+	}
+	authenticated = true;
+	authenticated_user = username;
+	authenticated_password = password;
 }
 
-Master::~Master() {
+void MasterConnect::authenticate(string username, string password)
+{
+	accumulo::cloudtrace::TInfo tinfo;
+	accumulo::security::AuthInfo creds;
+	string str = "";
+
+	creds.instanceId = instanceId;
+	creds.user = username;
+	creds.password = password;
+
+	tinfo.parentId = 0;
+	tinfo.traceId = rand();
+	if (!client->authenticateUser(tinfo, creds, username, password))
+	{
+		throw ClientException("Invalid username");
+	}
+	authenticated = true;
+	authenticated_user = username;
+	authenticated_password = password;
+}
+
+MasterConnect::~MasterConnect()
+{
 	transport->close();
 }
 }

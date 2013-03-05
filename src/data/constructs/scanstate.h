@@ -1,21 +1,22 @@
-/*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) 2013  <copyright holder> <email>
+/**
+  * Hello, this is BjarneClient, a free and open implementation of Accumulo
+  * and big table. This is meant to be the client that accesses Accumulo
+  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
+  * 2013 -- Marc Delta Poppa @ accumulo.net
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  **/
 
 #ifndef SCANSTATE_H
 #define SCANSTATE_H
@@ -51,7 +52,7 @@ ScanState();
 ScanState(AuthInfo *credentials, string tablename, Authorizations *auths, Range *range, set<Column*> *fetchedColumns, uint64_t size,
 	  vector<IterInfo*> *iters, map<string,map<string,string> *options, bool isolated) : isolated(isolated), tableName(tablename), credentials(credentials),auths(auths), skipStartRow(false),size(size)
 {
-  if (IsEmpty(credentials) || IsEmpty(tablename) || IsEmpty(auths) )
+  if (IsEmpty(credentials) || IsEmpty(&tablename) || IsEmpty(auths) )
   {
     throw ClientException("Credentials, tablename, and authorizations cannot be null");
   }
