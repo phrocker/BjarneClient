@@ -34,6 +34,21 @@ namespace data {
 class TabletLocation {
 public:
 	TabletLocation();
+	TabletLocation(KeyExtent *extent, string loc) : tablet_extent(extent), tablet_location(loc)
+	{
+
+	}
+
+	constexpr KeyExtent *getExtent()
+	{
+		return tablet_extent;
+	}
+
+	constexpr string getLocation()
+	{
+		return tablet_location;
+	}
+
 	virtual ~TabletLocation();
 protected:
 	KeyExtent *tablet_extent;

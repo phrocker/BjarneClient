@@ -50,7 +50,7 @@ class ScanState
 public:
 ScanState();
 ScanState(AuthInfo *credentials, string tablename, Authorizations *auths, Range *range, set<Column*> *fetchedColumns, uint64_t size,
-	  vector<IterInfo*> *iters, map<string,map<string,string> *options, bool isolated) : isolated(isolated), tableName(tablename), credentials(credentials),auths(auths), skipStartRow(false),size(size)
+	  vector<IterInfo*> *iters, map<string,map<string,string> *options, bool isolated) : isolated(isolated), tableName(tablename), credentials(credentials),auths(auths), skipStartRow(false),size(size), scanId(0)
 {
   if (IsEmpty(credentials) || IsEmpty(&tablename) || IsEmpty(auths) )
   {
@@ -59,10 +59,10 @@ ScanState(AuthInfo *credentials, string tablename, Authorizations *auths, Range 
   
   
   if (!IsEmpty(fetchedColumns))
-    columns.insert(fetchedColumns->begin(),fetchedColumns->end());
+    columns.insert(columns.begin(),fetchedColumns->begin(),fetchedColumns->end());
   
   if (!IsEmpty(iters))
-    serverSideIteratorList.insert(iters->begin(),iters->end());
+    serverSideIteratorList.insert(serverSideIteratorList.begin(),iters->begin(),iters->end());
   
   if (!IsEmpty(options))
     serverSideOptions.insert( options->begin(), options->end() );
@@ -78,6 +78,8 @@ ScanState(AuthInfo *credentials, string tablename, Authorizations *auths, Range 
     startRow = string(row.first,row.second);
     
   
+
+
   
 }
 ScanState(const ScanState& other);
