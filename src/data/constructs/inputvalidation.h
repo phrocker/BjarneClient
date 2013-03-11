@@ -21,8 +21,10 @@
 #define INPUTVALIDATION_H
 
 #include <iostream>
+#include <sstream>
 #include <string.h>
 #include <stdio.h>
+#include <vector>
 #include <cstring>
 using namespace std;
 

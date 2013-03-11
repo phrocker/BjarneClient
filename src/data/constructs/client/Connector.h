@@ -40,7 +40,7 @@ class Connector {
 public:
 	Connector(Instance *instance, string user, string password);
 
-	virtual ScannerBase *createScanner(string tableName,
+	virtual Source *createScanner(string tableName,
 			Authorizations *authorizations, int numQueryThreads) = 0;
 
 	virtual ~Connector();

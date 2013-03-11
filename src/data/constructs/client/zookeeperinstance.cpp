@@ -23,9 +23,9 @@
 #include "./zookeeper/zookeepers.h"
 #include "./zookeeper/zoocache.h"
 #include "../configuration/Configuration.h"
-#include "../../../connector/Connector.h"
+#include "Connector.h"
 #include "../../../connector/impl/AccumuloConnector.h"
-
+#include "../inputvalidation.h"
 #include "../../../interconnect/InterConnect.h"
 
 
@@ -53,7 +53,7 @@ namespace data{
 	string rootLoc = myZooCache->getPath(masterLockPath);
 	
 	
-	if (IsEmpty(rootLoc))
+	if (IsEmpty(&rootLoc))
 	{
 	    return NULL;
 	}
@@ -77,7 +77,7 @@ namespace data{
 	
 	vector<string> masters;
 	
-	if (IsEmpty(lockData))
+	if (IsEmpty(&lockData))
 	{
 	    return masters;
 	}

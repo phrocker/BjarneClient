@@ -23,7 +23,8 @@
 namespace cclient {
 namespace data {
 
-TabletLocation::TabletLocation() {
+TabletLocation::TabletLocation() : tablet_extent(NULL), tablet_location("")
+{
 // 	// TODO Auto-generated constructor stub
 
 }

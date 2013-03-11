@@ -18,39 +18,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef RANGEDEFINITION_H_
-#define RANGEDEFINITION_H_
+#ifndef TYPEDRESULTS_H_
+#define TYPEDRESULTS_H_
 
-#include "ServerDefinition.h"
-namespace cclient
+#include "Results.h"
+namespace scanners{
+template<class T, class TypeTo>
+class TypedResults: public ResultIter<T>
 {
 
-namespace data
-{
-namespace tserver
-{
-
-class RangeDefinition : public ServerDefinition
-{
-public:
-	RangeDefinition(AuthInfo *creds, Authorizations *auths, string host, uint32_t port, vector<Range*> *keyRange, vector<KeyExtent*> *keyExt): ::ServerDefinition(creds,auths,host,port)
-	{
-		ranges.insert(keyRange->begin(),keyRange->end());
-		extents.insert(keyExt->begin(),keyExt->end());
-
-	}
-
-	constexpr vector<Range*>::iterator getRanges()
-	{
-		return ranges.begin();
-	}
-
-	virtual ~RangeDefinition();
 protected:
-	vector<Range*> ranges;
-	vector<KeyExtent*> extents;
+	TypeTo *myVal;
+	T yourVal;
+public:
+
+	TypedResults(void *copyResultSet) : ResultIter<T>(reinterpret_cast<ResultIter<T>*>(copyResultSet))
+	{
+
+	}
+
+	TypedResults(ResultBlock<T> *copyResultSet ) : ResultIter<T>(copyResultSet)
+	{
+
+	}
+
+	TypeTo &operator*() {
+		yourVal = ResultIter<T>::operator*();
+		myVal = reinterpret_cast<TypeTo*>(&yourVal);
+		return *myVal;
+	}
+	virtual ~TypedResults()
+	{
+
+	}
 };
-}
-}
-}
-#endif /* RANGEDEFINITION_H_ */
+		}
+#endif /* TYPEDRESULTS_H_ */
