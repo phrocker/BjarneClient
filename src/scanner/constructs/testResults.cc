@@ -1,6 +1,6 @@
 /**
- * Hello, this is BjarneClient, a free and open implementation of Accumulo 
- * and big table. This is meant to be the client that accesses Accumulo 
+ * Hello, this is BjarneClient, a free and open implementation of Accumulo
+ * and big table. This is meant to be the client that accesses Accumulo
  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
  * 2013 -- Marc Delta Poppa @ accumulo.net
  *
@@ -17,20 +17,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
+#include <iostream>
 
-#include "Scanner.h"
+#include "Results.h"
+#include "TypedResults.h"
 
+using namespace std;
+using namespace scanners;
 
-namespace scanners {
-Scanner::Scanner()
+int main()
 {
-	// TODO Auto-generated constructor stub
+	Results<int,ResultBlock<int> > res;
+	res.add(34);
+	res.add(6);
+	res.add(9);
+	res.add(3);
 
+
+	Results<int,ResultBlock<int>>::iterator iter = res.begin();
+
+	TypedResults<int,float> riter(&iter);
+
+	TypedResults<float,double> titer(&riter);
+
+///*
+	for (; titer != titer.end(); titer++)
+	{
+		cout << "Value " << (*titer) << endl;
+	}
+//	*/
+	/*
+
+	for (; riter != riter.end(); riter++)
+		{
+			cout << "Value " << (*riter) << endl;
+		}
+	*/
 }
 
-Scanner::~Scanner()
-{
-	// TODO Auto-generated destructor stub
-}
-
-}

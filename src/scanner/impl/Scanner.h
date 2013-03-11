@@ -1,38 +1,38 @@
-/*
- * Scanner.h
+/**
+ * Hello, this is BjarneClient, a free and open implementation of Accumulo 
+ * and big table. This is meant to be the client that accesses Accumulo 
+ * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
+ * 2013 -- Marc Delta Poppa @ accumulo.net
  *
- *  Created on: Dec 9, 2012
- *      Author: marc
- */
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ **/
 
 #ifndef SCANNER_H_
 #define SCANNER_H_
 
-#include <iostream>
-#include <string>
-#include <cstdint>
-using namespace std;
-
-#include "../Scanner.h"
-
+#include "Source.h"
 #include "../constructs/Results.h"
-#include "../../data/constructs/client/Instance.h"
-#include "../../data/constructs/security/AuthInfo.h"
-#include "../../data/constructs/security/Authorizations.h"
 
-namespace scanners {
-namespace impl
+namespace scanners
 {
-
-using namespace cclient::data;
-using namespace cclient::data::security;
-
-class Scanner : scanners::ScannerBase{
+class Scanner: public scanners::Source
+{
 public:
-	Scanner(Instance *instance, AuthInfo *credentials, string table, Authorizations *authorizations);
+	Scanner();
 	Results * getResultSet(uint32_t maxSize);
 	virtual ~Scanner();
 };
-} /* namespace impl */
-} /* namespace scanners */
+}
 #endif /* SCANNER_H_ */
+

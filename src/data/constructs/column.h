@@ -33,9 +33,7 @@ namespace data {
 
 using namespace cclient::data::streams;
 
-/**
- * Code is partially based on some code I wrote in 2009 for a personal project
- */
+
 class Column: public StreamInterface 
 {
 
