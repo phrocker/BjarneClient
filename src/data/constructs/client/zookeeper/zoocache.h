@@ -117,6 +117,8 @@ public:
 
 			auto *childCache;
 
+			auto *dataCache;
+
 			auto *l;
 
 			ZooKeeper *zk;
