@@ -69,25 +69,15 @@ public:
 	void authenticate(AuthInfo *credentials);
 
 	virtual ~MasterConnect();
-protected:
 
-
-
-	void setTransport(shared_ptr<TTransport> transporty)
+	accumulo::tabletserver::TabletClientServiceClient *getServerClient()
 	{
-		shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
-
-		client = new accumulo::client::ClientServiceClient(protocolPtr);
-		tserverClient = new accumulo::tabletserver::TabletClientServiceClient(
-				protocolPtr);
-
-		transport = transporty;
-
-		client->getZooKeepers(zookeepers);
-		client->getInstanceId(instanceId);
+		return tserverClient;
 	}
 
-	accumulo::client::ClientServiceClient *client;
+
+protected:
+
 	accumulo::tabletserver::TabletClientServiceClient *tserverClient;
 	shared_ptr<TTransport> transport;
 
