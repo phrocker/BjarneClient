@@ -21,17 +21,47 @@
 #ifndef SCANNER_H_
 #define SCANNER_H_
 
-#include "Source.h"
+#include "../Source.h"
 #include "../constructs/Results.h"
+#include "../constructs/ServerHeuristic.h"
+#include "../../interconnect/ClientInterface.h"
 
 namespace scanners
 {
+using namespace interconnect;
 class Scanner: public scanners::Source
 {
 public:
 	Scanner();
-	Results * getResultSet(uint32_t maxSize);
+	Results * getResultSet();
+
+	void addResults(Results *results)
+	{
+
+	}
+
+
+
+	void setHeuristic(ScannerHeuristic *heuristic)
+	{
+		scannerHeuristic = heuristic;
+	}
+
+	void addServerDefinition(ClientInterface *ifc)
+	{
+		servers.push_back(ifc);
+	}
+
+	void addServerDefinition(vector<ClientInterface*> ifc)
+	{
+		servers.insert(servers.end(), ifc.begin(), ifc.end());
+	}
+
 	virtual ~Scanner();
+protected:
+
+	vector<ClientInterface*> servers;
+	ScannerHeuristic *scannerHeuristic;
 };
 }
 #endif /* SCANNER_H_ */

@@ -17,22 +17,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
-#ifndef SCANNER_H_
-#define SCANNER_H_
+#ifndef SOURCE_H_
+#define SOURCE_H_
 
 #include <iostream>
 #include <string>
 #include <cstdint>
 #include "../constructs/Results.h"
 
+using namespace std;
+
+
 namespace scanners
 {
-
+	using namespace interconnect;
 class Source
 {
 public:
 	Source();
-	virtual Results * getResultSet(uint32_t maxSize) = 0;
+	virtual Results * getResultSet() = 0;
+
+	virtual void addResults(Results *results) = 0;
+
 	virtual ~Source();
 };
 }
