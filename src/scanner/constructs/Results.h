@@ -136,6 +136,11 @@ public:
 		resultSet->insert(t);
 	}
 
+	void add(vector<T> *t)
+	{
+		resultSet->insert(t->begin(),t->end());
+	}
+
 	virtual ~ResultBlock()
 	{
 
@@ -252,6 +257,11 @@ public:
 	}
 
 	void add(T t)
+	{
+		iter->add(t);
+	}
+
+	void add(vector<T> *t)
 	{
 		iter->add(t);
 	}
