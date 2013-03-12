@@ -2,7 +2,7 @@
  * Hello, this is BjarneClient, a free and open implementation of Accumulo 
  * and big table. This is meant to be the client that accesses Accumulo 
  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
- * 2013 -- Marc Delta Poppa @ accumulo.net
+ * 2013 -- BinaryStream LLC
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,26 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#include "Scanner.h"
+#include "Heuristic.h"
 
-#include "../constructs/Results.h"
-
-namespace scanners
-{
-Scanner::Scanner()
+Heuristic::Heuristic()
 {
 	// TODO Auto-generated constructor stub
 
 }
 
-Scanner::~Scanner()
+Heuristic::~Heuristic()
 {
 	// TODO Auto-generated destructor stub
 }
 
-Results *Scanner::getResultSet()
-{
-	// TODO Auto-generated destructor stub
-}
-
-}
