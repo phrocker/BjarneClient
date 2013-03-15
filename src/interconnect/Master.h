@@ -34,7 +34,6 @@
 #include <transport/TSocket.h>
 #include <server/TNonblockingServer.h>
 #include <transport/TBufferTransports.h>
-
 #include <concurrency/ThreadManager.h>
 
 using namespace ::apache::thrift;
@@ -42,10 +41,9 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 using namespace ::apache::thrift::server;
 
-using boost::shared_ptr;
 
-#include "../ClientService.h"
-#include "../TabletClientService.h"
+#include "TabletServer.h"
+
 
 
 #include <string>
@@ -58,28 +56,23 @@ using boost::shared_ptr;
 
 namespace interconnect
 {
-class MasterConnect: public ClientInterface
+class MasterConnect: public ServerInterconnect
 {
 public:
 	MasterConnect(const string host, const int port);
 	MasterConnect(shared_ptr<TTransport> transport);
 
-	void authenticate(string username, string password);
+/*	void authenticate(string username, string password);
 
 	void authenticate(AuthInfo *credentials);
-
+*/
 	virtual ~MasterConnect();
 
-	accumulo::tabletserver::TabletClientServiceClient *getServerClient()
-	{
-		return tserverClient;
-	}
 
 
 protected:
 
-	accumulo::tabletserver::TabletClientServiceClient *tserverClient;
-	shared_ptr<TTransport> transport;
+
 
 };
 }
