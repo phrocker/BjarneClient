@@ -51,7 +51,7 @@ using boost::shared_ptr;
 #include "../data/constructs/Mutation.h"
 #include "../writer/Sink.h"
 #include "../writer/MutationCollector.h"
-#include "ClientInterface.h"
+#include "TabletServer.h"
 #include "../data/exceptions/ClientException.h"
 
 using namespace std;
@@ -61,78 +61,22 @@ namespace interconnect
 using namespace cclient::exceptions;
 using namespace cclient::data::security;
 
-MasterConnect::MasterConnect(shared_ptr<TTransport> transporty)
+MasterConnect::MasterConnect(shared_ptr<TTransport> transporty) : ::ServerInterconnect(transporty)
 {
-	setTransport(transporty);
+
 }
-MasterConnect::MasterConnect(const string host, const int port) :
-		::ClientInterface(host, port)
+MasterConnect::MasterConnect(const string host, const int port) : ::ServerInterconnect(host,port)
+
 {
 
-	shared_ptr<TTransport> serverTransport(new TSocket(host, port));
 
-	shared_ptr<TTransport> transporty(new TFramedTransport(serverTransport));
-	shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
-	transporty->open();
-
-	client = new accumulo::client::ClientServiceClient(protocolPtr);
-	tserverClient = new accumulo::tabletserver::TabletClientServiceClient(
-			protocolPtr);
-
-	transport = transporty;
-
-	client->getZooKeepers(zookeepers);
-	client->getInstanceId(instanceId);
 
 }
 
-void MasterConnect::authenticate(AuthInfo *credentials)
-{
 
-	string username = credentials->getUserName();
-	string password = credentials->getPassword();
-	accumulo::cloudtrace::TInfo tinfo;
-	accumulo::security::AuthInfo creds;
-	string str = "";
-
-	creds.instanceId = instanceId;
-	creds.user = username;
-	creds.password = password;
-
-	tinfo.parentId = 0;
-	tinfo.traceId = rand();
-	if (!client->authenticateUser(tinfo, creds, username, password))
-	{
-		throw ClientException("Invalid username");
-	}
-	authenticated = true;
-	authenticated_user = username;
-	authenticated_password = password;
-}
-
-void MasterConnect::authenticate(string username, string password)
-{
-	accumulo::cloudtrace::TInfo tinfo;
-	accumulo::security::AuthInfo creds;
-	string str = "";
-
-	creds.instanceId = instanceId;
-	creds.user = username;
-	creds.password = password;
-
-	tinfo.parentId = 0;
-	tinfo.traceId = rand();
-	if (!client->authenticateUser(tinfo, creds, username, password))
-	{
-		throw ClientException("Invalid username");
-	}
-	authenticated = true;
-	authenticated_user = username;
-	authenticated_password = password;
-}
 
 MasterConnect::~MasterConnect()
 {
-	transport->close();
+
 }
 }

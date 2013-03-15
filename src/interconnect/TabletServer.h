@@ -21,8 +21,10 @@
 #ifndef TABLETSERVER_H_
 #define TABLETSERVER_H_
 
+#define SIGNED_RIGHT_SHIFT_IS 5
+#define ARITHMETIC_RIGHT_SHIFT 5
+
 #include <string>
-#include "Master.h"
 #include "InterConnect.h"
 #include "../data/constructs/inputvalidation.h"
 #include "../data_types.h"
@@ -34,6 +36,8 @@
 #include <boost/shared_ptr.hpp>
 #include "../data/constructs/server/RangeDefinition.h"
 #include "../data/constructs/server/ServerDefinition.h"
+#include "../ClientService.h"
+#include "../TabletClientService.h"
 using boost::shared_ptr;
 
 using namespace std;
@@ -47,19 +51,16 @@ using namespace cclient::impl;
 using namespace accumulo::data;
 using namespace cclient::data::tserver;
 
-class ServerInterconnect: public MasterConnect
+class ServerInterconnect: public ClientInterface
 {
 public:
-	ServerInterconnect(const string host, const int port) :
-			MasterConnect(host, port)
-	{
-	}
-	ServerInterconnect(shared_ptr<TTransport> transport) :
-			MasterConnect(transport)
-	{
-	}
 
-	ServerInterconnect(RangeDefinition &rangeDef, Configuration *conf)
+	ServerInterconnect(shared_ptr<TTransport> transport);
+
+	ServerInterconnect(const string host, const int port);
+
+	ServerInterconnect(RangeDefinition &rangeDef, Configuration *conf,
+			SpiderConnector *distributedConnector = &CLUSTER_COORDINATOR)
 	{
 		ConnectorService conn("tserver;" + rangeDef.getServer());
 
@@ -72,15 +73,15 @@ public:
 		}
 
 		const uint32_t timeout = conf->getLong(GENERAL_RPC_TIMEOUT_OPT,
-				GENERAL_RPC_TIMEOUT);
+		GENERAL_RPC_TIMEOUT);
 
 		ServerConnection tServer(
 				conn.getAddressString(
 						interconnect::INTERCONNECT_TYPES::TSERV_CLIENT),
 				rangeDef.getPort(), timeout);
 
-		shared_ptr<TTransport> cachedTransport =
-				CLUSTER_COORDINATOR.createNewTransport(&tServer);
+		shared_ptr<Transporter> cachedTransport =
+				distributedConnector->createNewTransport(&tServer);
 
 		setTransport(cachedTransport);
 
@@ -94,10 +95,29 @@ public:
 				auths, range, fetchedColumns, size, &list, &map, false);
 
 		TabletType type = cclient::data::tserver::fromExtent(extent);
+
+		vector<Range*> *ranges = rangeDef.getRanges();
+
+		limitedRanges.insert(ranges->begin(), ranges->end());
+
+		myDistributedConnector =
+				static_cast<ServerTransport*>(distributedConnector);
+	}
+
+	Scan *scan(RangeDefinition *def = NULL)
+	{
+		if (IsEmpty(def) && IsEmpty(limitedRanges))
+		{
+			return runtime_error("Must scan a set of ranges");
+		}
+
 	}
 
 	virtual ~ServerInterconnect();
 protected:
+
+	ServerTransport *myDistributedConnector;
+	vector<Range*> limitedRanges;
 	ServerDefinition *serverDef;
 };
 

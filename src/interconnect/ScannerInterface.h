@@ -18,37 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef SCAN_H_
-#define SCAN_H_
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-#include "../data/constructs/KeyValue.h"
+#ifndef SCANNERINTERFACE_H_
+#define SCANNERINTERFACE_H_
 
 
-/**
- * Represents a running scan
- */
+#include <string>
+
+#include "Scan.h"
 
 namespace interconnect
 {
-	using namespace cclient::data;
-class Scan
+
+using namespace std;
+
+
+class ScannerInterface
 {
 public:
+	ScannerInterface();
 
-	Scan(ServerInterconnect *cifc);
-
-	bool getNextResults(vector<KeyValue*> *resultSet)
-	{
-
-	}
-	virtual ~Scan();
-protected:
-	ServerInterconnect *client;
+	virtual Scan beginScan() = 0;
+	virtual ~ScannerInterface();
 };
-}
-#endif /* SCAN_H_ */
+
+#endif /* SCANNERINTERFACE_H_ */

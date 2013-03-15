@@ -40,9 +40,9 @@ public:
 
 	}
 
-	constexpr vector<Range*>::iterator getRanges()
+	constexpr vector<Range*> *getRanges()
 	{
-		return ranges.begin();
+		return &ranges;
 	}
 
 	virtual ~RangeDefinition();

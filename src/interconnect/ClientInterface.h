@@ -37,30 +37,18 @@ public:
 
 	virtual void authenticate(string username, string password) = 0;
 
-	void setTransport(shared_ptr<TTransport> transporty)
+	void setTransport(shared_ptr<Transporter> transporty)
 	{
-		shared_ptr<TProtocol> protocolPtr(new TCompactProtocol(transporty));
 
-		client = new accumulo::client::ClientServiceClient(protocolPtr);
-		tserverClient = new accumulo::tabletserver::TabletClientServiceClient(
-				protocolPtr);
+		transport = transpory;
 
-		transport = transporty;
-
-		client->getZooKeepers(zookeepers);
-		client->getInstanceId(instanceId);
+		transport->registerService(instanceId,zookeepers);
 	}
-
-
-	accumulo::client::ClientServiceClient *getClient()
-	{
-		return client;
-	}
-
 
 protected:
 
-	accumulo::client::ClientServiceClient *client;
+
+	shared_ptr<Transporter> transport;
 
 	string server_host;
 	int server_port;
@@ -68,7 +56,7 @@ protected:
 
 	string authenticated_user;
 	string authenticated_password;
-// info abt cluster
+	// info abt cluster
 	string instanceId;
 	string zookeepers;
 
