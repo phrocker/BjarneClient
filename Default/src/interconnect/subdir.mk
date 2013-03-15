@@ -6,16 +6,19 @@
 CPP_SRCS += \
 ../src/interconnect/ClientInterface.cpp \
 ../src/interconnect/Master.cpp \
+../src/interconnect/Scan.cpp \
 ../src/interconnect/TabletServer.cpp 
 
 OBJS += \
 ./src/interconnect/ClientInterface.o \
 ./src/interconnect/Master.o \
+./src/interconnect/Scan.o \
 ./src/interconnect/TabletServer.o 
 
 CPP_DEPS += \
 ./src/interconnect/ClientInterface.d \
 ./src/interconnect/Master.d \
+./src/interconnect/Scan.d \
 ./src/interconnect/TabletServer.d 
 
 

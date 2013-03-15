@@ -19,10 +19,13 @@
  **/
 
 #include "Scan.h"
+#include "TabletServer.h"
 
-Scan::Scan()
+namespace interconnect
 {
-	// TODO Auto-generated constructor stub
+
+Scan::Scan(ServerInterconnect *cifc) : client(cifc)
+{
 
 }
 
@@ -31,3 +34,4 @@ Scan::~Scan()
 	// TODO Auto-generated destructor stub
 }
 
+}

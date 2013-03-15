@@ -18,37 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef SCAN_H_
-#define SCAN_H_
+#ifndef SERVERTRANSPORT_H_
+#define SERVERTRANSPORT_H_
 
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-#include "../data/constructs/KeyValue.h"
-
-
-/**
- * Represents a running scan
- */
+#include "Transport.h"
+#include "ServerConnection.h"
 
 namespace interconnect
 {
-	using namespace cclient::data;
-class Scan
+
+template<typename T>
+class ServerTransport: public Transporter<T>
 {
 public:
-
-	Scan(ServerInterconnect *cifc);
-
-	bool getNextResults(vector<KeyValue*> *resultSet)
+	Scan *beginScan(ServerConnection *conn)
 	{
-
+		return NULL;
 	}
-	virtual ~Scan();
-protected:
-	ServerInterconnect *client;
 };
-}
-#endif /* SCAN_H_ */
+
+} /* namespace interconnect */
+#endif /* SERVERTRANSPORT_H_ */
