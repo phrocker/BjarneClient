@@ -1,6 +1,6 @@
 /**
- * Hello, this is BjarneClient, a free and open implementation of Accumulo 
- * and big table. This is meant to be the client that accesses Accumulo 
+ * Hello, this is BjarneClient, a free and open implementation of Accumulo
+ * and big table. This is meant to be the client that accesses Accumulo
  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
  * 2013 -- BinaryStream LLC
  *
@@ -18,37 +18,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef SCAN_H_
-#define SCAN_H_
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-#include "../data/constructs/KeyValue.h"
+#ifndef TRANSPORT_H_
+#define TRANSPORT_H_
 
 
-/**
- * Represents a running scan
- */
+
+#include "ServerConnection.h"
+
 
 namespace interconnect
 {
-	using namespace cclient::data;
-class Scan
+
+template<typename T>
+class Transporter
 {
-public:
-
-	Scan(ServerInterconnect *cifc);
-
-	bool getNextResults(vector<KeyValue*> *resultSet)
-	{
-
-	}
-	virtual ~Scan();
 protected:
-	ServerInterconnect *client;
+	virtual void newTransporter(ServerConnection *conn) = 0;
+public:
+	Transporter(ServerConnection *conn)
+	{
+		return newTransporter(conn);
+	}
+
+	virtual T getTransport() = 0;
+	virtual void registerService(string instance, string clusterManagers) = 0;
+	virtual bool open() = 0;
+	virtual bool isOpen() = 0;
+
 };
+
 }
-#endif /* SCAN_H_ */
+
+#endif /* TRANSPORT_H_ */
