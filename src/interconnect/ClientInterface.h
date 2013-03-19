@@ -21,7 +21,12 @@
 #ifndef CLIENTINTERFACE_H_
 #define CLIENTINTERFACE_H_
 
+#include <boost/shared_ptr.hpp>
 #include <string>
+
+using namespace boost::shared_ptr;
+
+#include "Transport.h"
 
 namespace interconnect
 {
