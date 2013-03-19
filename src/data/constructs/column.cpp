@@ -25,19 +25,30 @@ using namespace std;
 
 namespace cclient {
 namespace data {
+
+using namespace cclient::data::streams;
+
 Column::Column(string *columFam, string *columnQual = NULL, string *columnVis =
 		NULL) {
 	if (!IsEmpty(columFam)) {
 		columnFamily = new char[columFam->size() + 1];
 		memcpy(columnFamily, columFam->c_str(), columFam->size());
+		columnFamilyLen = columFam->size();
 	} else
+	{
 		columnFamily = new char[0];
+		columnFamilyLen = 0;
+	}
 
 	if (!IsEmpty(columnQual)) {
 		columnQualifier = new char[columnQual->size() + 1];
 		memcpy(columnQualifier, columnQual->c_str(), columnQual->size());
+		columnQualifierLen = columFam->size();
 	} else
+	{
 		columnQualifier = new char[0];
+		columnQualifierLen = 0;
+	}
 
 	if (!IsEmpty(columnVis)) {
 		columnVisibility = new char[columnVis->size() + 1];
@@ -46,9 +57,43 @@ Column::Column(string *columFam, string *columnQual = NULL, string *columnVis =
 		columnVisibility = new char[0];
 }
 
-Column::Column(const Column& other) {
+
+void Column::setColFamily(const char *r, uint32_t size) {
+
+	if (columnFamilyLen > 0) {
+		delete[] colFamily;
+		colFamily = new char[size];
+		columnFamilyLen = size;
+	}
+
+	memcpy(colFamily, r, size);
+	columnFamilyLen = size;
 
 }
+
+void Column::setColQualifier(const char *r, uint32_t size) {
+	if (columnQualifierLen > 0) {
+		delete[] columnQualifier;
+		columnQualifier = new char[size];
+		columnQualifierLen = size;
+	}
+
+	memcpy(columnQualifier, r, size);
+	columnQualifierLen = size;
+
+}
+
+void Column::setColVisibility(const char *r, uint32_t size) {
+		if (columnVisibilityLen > 0) {
+			delete[] keyVisibility;
+			columnVisibility = new char[size];
+			columnVisibilityLen = size;
+		}
+
+		memcpy(columnVisibility, r, size);
+		columnVisibilityLen = size;
+
+	}
 
 Column::~Column() {
 	delete[] columnFamily;
