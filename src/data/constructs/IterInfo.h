@@ -18,50 +18,62 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef SCAN_H_
-#define SCAN_H_
+#ifndef ITERINFO_H_
+#define ITERINFO_H_
 
-#include <iostream>
-#include <vector>
-#include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>
-
+#include <string>
+#include <map>
 using namespace std;
-
-#include "../data/constructs/KeyValue.h"
-
-//http://sector.sourceforge.net/software.html
-
-/**
- * Represents a running scan
- */
-
-namespace interconnect
+namespace cclient
 {
-using namespace cclient::data;
-class Scan
+namespace data
+{
+
+class IterInfo
 {
 public:
-
-	Scan(ServerInterconnect *cifc);
-
-	bool getNextResults(vector<KeyValue*> *resultSet)
+	IterInfo(string name, string cl, uint32_t pri) :
+			iterName(name), iterClass(cl), priority(pri)
 	{
-		return false;
+
 	}
-
-	uint64_t getId()
+	virtual ~IterInfo()
 	{
-
-		return scanId;
 
 	}
 
-	virtual ~Scan();
+	constexpr uint32_t getPriority()
+	{
+		return priority;
+	}
+
+	constexpr string getName()
+	{
+		return iterName;
+	}
+
+	constexpr string getClass()
+	{
+		return iterClass;
+	}
+
+	void addOption(string optionName, string optionValue)
+	{
+		options[optionName] = optionValue;
+	}
+
+	constexpr map<string, string> getOptions()
+	{
+		return options;
+	}
 protected:
-	uint64_t scanId;
-	ServerInterconnect *client;
+
+	map<string, string> options;
+	uint32_t priority;
+	string iterName;
+	string iterClass;
 };
-}
-#endif /* SCAN_H_ */
+
+} /* namespace data */
+} /* namespace cclient */
+#endif /* ITERINFO_H_ */
