@@ -22,7 +22,9 @@
 #define SERVERTRANSPORT_H_
 
 #include "Transport.h"
-#include "ServerConnection.h"
+
+#include "ScanRequest.h"
+#include "../Scan.h"
 
 namespace interconnect
 {
@@ -31,10 +33,8 @@ template<typename T>
 class ServerTransport: public Transporter<T>
 {
 public:
-	Scan *beginScan(ServerConnection *conn)
-	{
-		return NULL;
-	}
+	virtual Scan *beginScan(ScanRequest *req) = 0;
+
 };
 
 } /* namespace interconnect */

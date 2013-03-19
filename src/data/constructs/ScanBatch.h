@@ -18,50 +18,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef SCAN_H_
-#define SCAN_H_
+#ifndef SCANBATCH_H_
+#define SCANBATCH_H_
 
-#include <iostream>
-#include <vector>
-#include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>
-
-using namespace std;
-
-#include "../data/constructs/KeyValue.h"
-
-//http://sector.sourceforge.net/software.html
-
-/**
- * Represents a running scan
- */
-
-namespace interconnect
+#include "KeyExtent.h"
+#include "inputvalidation.h"
+#include "../exceptions/IllegalArgumentException.h"
+namespace cclient
 {
-using namespace cclient::data;
-class Scan
+namespace data
+{
+using namespace cclient::exceptions;
+
+class ScanBatch
 {
 public:
-
-	Scan(ServerInterconnect *cifc);
-
-	bool getNextResults(vector<KeyValue*> *resultSet)
+	ScanBatch(KeyExtent *extent) :
+			myExtent(extent)
 	{
-		return false;
+		if (IsEmpty(extent))
+		{
+			throw IllegalArgumentException("Extent is not allowed to be null");
+		}
 	}
 
-	uint64_t getId()
+	void addRange(Range *range)
 	{
-
-		return scanId;
-
+		ranges.insert(range);
 	}
 
-	virtual ~Scan();
+
+	virtual ~ScanBatch()
+	{
+
+	}
 protected:
-	uint64_t scanId;
-	ServerInterconnect *client;
+	KeyExtent *myExtent;
+	set<Range*> ranges;
 };
-}
-#endif /* SCAN_H_ */
+
+} /* namespace data */
+} /* namespace cclient */
+#endif /* SCANBATCH_H_ */

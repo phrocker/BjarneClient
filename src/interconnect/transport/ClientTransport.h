@@ -31,10 +31,7 @@ template<typename T>
 class ClientTransport: public Transporter<T>
 {
 public:
-	Scan *beginScan(ServerConnection *conn)
-	{
-		return NULL;
-	}
+
 };
 
 } /* namespace interconnect */

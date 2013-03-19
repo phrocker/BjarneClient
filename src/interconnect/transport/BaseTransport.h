@@ -54,6 +54,13 @@ using namespace ::apache::thrift::server;
 #include "Transport.h"
 #include <boost/concept_check.hpp>
 
+#include "ScanRequest.h"
+#include "../../data/constructs/thrift/ThriftWrapper.h"
+#include "../../data/constructs/security/AuthInfo.h"
+#include "../Scan.h"
+
+using namespace cclient::data;
+
 using namespace cclient::exceptions;
 
 namespace interconnect
@@ -154,9 +161,57 @@ public:
 		client->getInstanceId(instance);
 	}
 
-	Scan *beginScan(ServerConnection *conn)
+	Scan *beginScan(ScanRequest *request)
 	{
-		return NULL;
+		Scan *intitialScan = new Scan();
+		accumulo::data::InitialMultiScan scan;
+
+		accumulo::cloudtrace::TInfo scanId;
+
+		scanId.traceId = scan->getId();
+		scanId.parentId = scan->getId();
+
+		accumulo::data::ScanBatch batch;
+
+		/*
+		 void startMultiScan(accumulo::data::InitialMultiScan& _return,
+		 const accumulo::cloudtrace::TInfo& tinfo,
+		 const accumulo::security::AuthInfo& credentials,
+		 const accumulo::data::ScanBatch& batch,
+		 const std::vector<accumulo::data::TColumn> & columns,
+		 const std::vector<accumulo::data::IterInfo> & ssiList,
+		 const std::map<std::string,
+		 std::map<std::string, std::string> > & ssio,
+		 const std::vector<std::string> & authorizations,
+		 const bool waitForWrites);
+		 */
+		vector<IterInfo*> *iters = request->getIterators();
+		map<std::string, std::map<std::string, std::string> > iterOptions;
+		for (auto it = iters->begin(); it != iters->end(); it++)
+		{
+			auto myOptions = (*it)->getOptions();
+			for (auto optIt = myOptions.begin(); optIt != myOptions.end();
+					optIt++)
+			{
+				iterOptions[(*it)->getName()][(*optIt).first] = (*optIt).second;
+			}
+		}
+
+		tserverClient->startMultiScan(scan, scanId,
+				ThriftWrapper::convert(request->getCredentials()), NULL,
+				ThriftWrapper::convert(request->getColumns()),
+				ThriftWrapper::convert(iters), iterOptions,
+				request->getAuthorizations()->getAuthorizations(), true);
+
+		return intitialScan;
+	}
+
+	void close()
+	{
+		if (!IsEmpty(client))
+			client->close();
+		if (!IsEmpty(tserverClient))
+			tserverClient->close();
 	}
 
 	/*

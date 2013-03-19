@@ -24,9 +24,12 @@
 namespace interconnect
 {
 
-Scan::Scan(ServerInterconnect *cifc) : client(cifc)
+Scan::Scan(ServerInterconnect *cifc) :
+		client(cifc)
 {
-
+	srand(time(NULL));
+	scanId = rand();
+}
 }
 
 Scan::~Scan()
