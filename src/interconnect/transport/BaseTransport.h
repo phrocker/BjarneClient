@@ -54,7 +54,7 @@ using namespace ::apache::thrift::server;
 #include "Transport.h"
 #include <boost/concept_check.hpp>
 
-#include "ScanRequest.h"
+#include "./scanrequest/ScanRequest.h"
 #include "../../data/constructs/thrift/ThriftWrapper.h"
 #include "../../data/constructs/security/AuthInfo.h"
 #include "../Scan.h"
@@ -66,57 +66,8 @@ using namespace cclient::exceptions;
 namespace interconnect
 {
 
-template<typename T>
-class ObjectStreamer
-{
-public:
+typedef ScanRequest<ScanIdentifier> BaseScanRequest;
 
-	ObjectStreamer() :
-			closed(false)
-	{
-	}
-
-	bool write(T object)
-	{
-		objects.push_back(object);
-
-		return true;
-	}
-
-	void close()
-	{
-		closed = true;
-		iut = objects.begin();
-	}
-
-	bool hasNext()
-	{
-		return !(it == objects.end());
-	}
-
-	T next()
-	{
-		if (!closed)
-			throw runtime_exception(
-					"attempting to interrogate open object streamer");
-		T object = (*it);
-
-		it++;
-
-		return obj;
-	}
-
-protected:
-	vector<T>::iterator it;
-	bool closed;
-	vector<T> objects;
-};
-
-template<typename T>
-class ThriftStreamer: ObjectStreamer<T>
-{
-
-};
 
 class ThriftTransporter: public ServerTransport<TTransport>
 {
