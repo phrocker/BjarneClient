@@ -1,5 +1,5 @@
 /**
- * Hello, this is BjarneClient, a free and open implementation of Accumulo
+ÿ½ * Hello, this is BjarneClient, a free and open implementation of Accumulo
  * and big table. This is meant to be the client that accesses Accumulo
  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
  * 2013 -- Marc Delta Poppa @ accumulo.net
@@ -198,7 +198,8 @@ public:
 		}
 
 		tserverClient->startMultiScan(scan, scanId,
-				ThriftWrapper::convert(request->getCredentials()), NULL,
+				ThriftWrapper::convert(request->getCredentials()),
+				ThriftWrapper::convert(request->getRangeIdentifier()),
 				ThriftWrapper::convert(request->getColumns()),
 				ThriftWrapper::convert(iters), iterOptions,
 				request->getAuthorizations()->getAuthorizations(), true);
