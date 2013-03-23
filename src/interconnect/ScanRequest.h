@@ -34,6 +34,7 @@ using namespace cclient::data::security;
 /**
  * Represents a scan request
  */
+
 class ScanRequest
 {
 
@@ -52,19 +53,24 @@ class ScanRequest
 
 public:
 	ScanRequest(AuthInfo *credentials, Authorizations *auths,
-			vector<IterInfo*> *iters, ServerConnection *server) :
+			ServerConnection *server) :
 			creds(credentials), auths(auths), connection(server)
 	{
-		for (auto it = iters->begin(); it != iters->end(); it++)
-		{
-			iterators.push_back(*it);
-		}
+
 	}
 
 	virtual ~ScanRequest()
 	{
 
 	}
+
+	virtual void setIters(vector<IterInfo*> *iters)
+		{
+		for (auto it = iters->begin(); it != iters->end(); it++)
+				{
+					iterators.push_back(*it);
+				}
+		}
 
 	void addColumn(Column *col)
 	{
@@ -96,6 +102,15 @@ public:
 		return &iterators;
 	}
 
+	void putRangeIdentifier(KeyExtent* extent, vector<Range*> ranges)
+	{
+		extentToRange[ extent ].insert( extentToRange[extent].end(), ranges.begin(), ranges.end());
+	}
+
+	constexpr map<KeyExtent*,vector<Range*> > *getRangeIdentifiers()
+		{
+		return &extentToRange;
+		}
 
 
 protected:

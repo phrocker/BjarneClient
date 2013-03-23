@@ -1,5 +1,5 @@
 /**
- * Hello, this is BjarneClient, a free and open implementation of Accumulo 
+d * Hello, this is BjarneClient, a free and open implementation of Accumulo
  * and big table. This is meant to be the client that accesses Accumulo 
  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
  * 2013 -- BinaryStream LLC
@@ -63,6 +63,57 @@ public:
 		return convertedIters;
 
 	}
+
+	static accumulo::data::ScanBatch convert(
+				map<KeyExtent*,vector<Range*> > *rangeIdentifiers)
+		{
+			for(auto it : rangeIdentifiers->begin())
+			{
+				KeyExtent *extent = it->first;
+				vector<Range*> *ranges = &it->second();
+				TKeyExtent keyExtent;
+				keyExtent.table = extent->getTableId();
+				keyExtent.endRow = extent->getEndRow();
+				keyExtent.prevEndRow = extent->getPrevEndRow();
+			}
+		}
+
+		static accumulo::data::TKey convert(Key *key)
+		{
+			accumulo::data::TKey  newKey;
+			/*
+			 * std::string row;
+  std::string colFamily;
+  std::string colQualifier;
+  std::string colVisibility;
+  int64_t timestamp;
+			 */
+			std::pair<char*,size_t> cfPair = key->getColFamily();
+			newKey.colFamily = string(cfPair.first,cfPair.second);
+
+			std::pair<char*,size_t> cqPair = key->getColQualifier();
+			newKey.colQualifier = string(cqPair.first,cqPair.second);
+
+			std::pair<char*,size_t> cvPair = key->getColVisibility();
+			newKey.colVisibility = string(cvPair.first,cvPair.second);
+
+			newKey.timestamp = key->getTimeStamp();
+
+
+			return newKey;
+		}
+
+		static accumulo::data::TRange convert(Range *range)
+		{
+				accumulo::data::TRange newRange;
+				newRange.start = convert(range->getStartKey() );
+				newRange.stop = convert(range->getStopKey() );
+				newRange.startKeyInclusive = range->getStartKeyInclusive();
+				newRange.stopKeyInclusive = range->getStopKeyInclusive();
+				newRange.infiniteStartKey = range->getInfiniteStartKey();
+				newRange.infiniteStopKey = range->getInfiniteStopKey();
+				return newRange;
+		}
 
 	static vector<accumulo::data::TColumn> convert(
 			vector<cclient::data::Column*> *columns)
