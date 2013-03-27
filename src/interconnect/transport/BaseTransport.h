@@ -1,5 +1,5 @@
 /**
- * Hello, this is BjarneClient, a free and open implementation of Accumulo
+ÿ½ * Hello, this is BjarneClient, a free and open implementation of Accumulo
  * and big table. This is meant to be the client that accesses Accumulo
  * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
  * 2013 -- Marc Delta Poppa @ accumulo.net
@@ -54,7 +54,7 @@ using namespace ::apache::thrift::server;
 #include "Transport.h"
 #include <boost/concept_check.hpp>
 
-#include "ScanRequest.h"
+#include "./scanrequest/ScanRequest.h"
 #include "../../data/constructs/thrift/ThriftWrapper.h"
 #include "../../data/constructs/security/AuthInfo.h"
 #include "../Scan.h"
@@ -66,57 +66,8 @@ using namespace cclient::exceptions;
 namespace interconnect
 {
 
-template<typename T>
-class ObjectStreamer
-{
-public:
+typedef ScanRequest<ScanIdentifier> BaseScanRequest;
 
-	ObjectStreamer() :
-			closed(false)
-	{
-	}
-
-	bool write(T object)
-	{
-		objects.push_back(object);
-
-		return true;
-	}
-
-	void close()
-	{
-		closed = true;
-		iut = objects.begin();
-	}
-
-	bool hasNext()
-	{
-		return !(it == objects.end());
-	}
-
-	T next()
-	{
-		if (!closed)
-			throw runtime_exception(
-					"attempting to interrogate open object streamer");
-		T object = (*it);
-
-		it++;
-
-		return obj;
-	}
-
-protected:
-	vector<T>::iterator it;
-	bool closed;
-	vector<T> objects;
-};
-
-template<typename T>
-class ThriftStreamer: ObjectStreamer<T>
-{
-
-};
 
 class ThriftTransporter: public ServerTransport<TTransport>
 {
@@ -198,7 +149,8 @@ public:
 		}
 
 		tserverClient->startMultiScan(scan, scanId,
-				ThriftWrapper::convert(request->getCredentials()), NULL,
+				ThriftWrapper::convert(request->getCredentials()),
+				ThriftWrapper::convert(request->getRangeIdentifier()),
 				ThriftWrapper::convert(request->getColumns()),
 				ThriftWrapper::convert(iters), iterOptions,
 				request->getAuthorizations()->getAuthorizations(), true);
