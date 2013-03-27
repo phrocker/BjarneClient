@@ -35,6 +35,31 @@ public:
 	    return start;
 	}
 
+	Key *getStopKey()
+	{
+		return stop;
+	}
+
+	bool getStartKeyInclusive()
+	{
+		return startKeyInclusive;
+	}
+
+	bool getStopKeyInclusive()
+	{
+		return stopKeyInclusive;
+	}
+
+	bool getInfiniteStartKey()
+	{
+		return infiniteStartKey;
+	}
+
+	bool getInfiniteStopKey()
+	{
+		return infiniteStopKey;
+	}
+
 	virtual ~Range();
 protected:
 	Key *start;

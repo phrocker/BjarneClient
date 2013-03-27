@@ -132,6 +132,15 @@ public:
 	  return tableId;
 	}
 	
+	string getEndRow()
+	{
+		return endRow;
+	}
+
+	string getPrevEndRow()
+	{
+		return prevEndRow();
+	}
 
 protected:
 	void setPrevEndRow(Value *prevEndRow) {
