@@ -1,4 +1,5 @@
 #include "translator.h"
+#include <arpa/inet.h>
 
 using namespace cclient::data::streams;
 

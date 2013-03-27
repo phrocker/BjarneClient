@@ -8,11 +8,11 @@ HadoopDataOutputStream::HadoopDataOutputStream(OutputStream *out_stream)  : Outp
 
 }
 
-virtual HadoopDataOutputStream::~HadoopDataOutputStream() {
+ HadoopDataOutputStream::~HadoopDataOutputStream() {
 
 }
 
-virtual uint64_t HadoopDataOutputStream::getPos() {
+ uint64_t HadoopDataOutputStream::getPos() {
 	return output_stream_ref->getPos();
 }
 
@@ -20,46 +20,46 @@ uint64_t HadoopDataOutputStream::write(const char *bytes, long cnt) {
 	return output_stream_ref->write(bytes, cnt);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeByte(int byte) {
+ uint64_t HadoopDataOutputStream::writeByte(int byte) {
 	return output_stream_ref->writeByte(byte);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeString(string s) {
+ uint64_t HadoopDataOutputStream::writeString(string s) {
 	// write size of string
 	output_stream_ref->writeHadoopLong(s.size());
 	return output_stream_ref->writeBytes((uint8_t*) s.data(), s.size());
 }
 
-virtual uint64_t HadoopDataOutputStream::write(const uint8_t *bytes, long cnt) {
+ uint64_t HadoopDataOutputStream::write(const uint8_t *bytes, long cnt) {
 	return output_stream_ref->write(bytes, cnt);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeBytes(const uint8_t *bytes,
+ uint64_t HadoopDataOutputStream::writeBytes(const uint8_t *bytes,
 		size_t cnt) {
 	return output_stream_ref->writeBytes(bytes, cnt);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeByte(const uint8_t byte) {
+ uint64_t HadoopDataOutputStream::writeByte(const uint8_t byte) {
 	return output_stream_ref->writeByte(byte);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeShort(const short shortVal) {
+ uint64_t HadoopDataOutputStream::writeShort(const short shortVal) {
 	return output_stream_ref->writeShort(shortVal);
 }
-virtual uint64_t HadoopDataOutputStream::writeInt(const int intVal) {
+ uint64_t HadoopDataOutputStream::writeInt(const int intVal) {
 	return output_stream_ref->writeInt(intVal);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeLong(const uint64_t val) {
+ uint64_t HadoopDataOutputStream::writeLong(const uint64_t val) {
 	return output_stream_ref->writeLong(val);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeBoolean(const bool val) {
+ uint64_t HadoopDataOutputStream::writeBoolean(const bool val) {
 
 	return output_stream_ref->writeBoolean(val);
 }
 
-virtual uint64_t HadoopDataOutputStream::writeHadoopLong(const int64_t n) {
+ uint64_t HadoopDataOutputStream::writeHadoopLong(const int64_t n) {
 	if ((n < 128) && (n >= -32)) {
 		return output_stream_ref->writeByte((int) n);
 	} else {

@@ -25,6 +25,7 @@
 #include "Key.h"
 #include "value.h"
 #include "rkey.h"
+#include "../streaming/stream_ifc.h"
 
 
 
@@ -32,7 +33,7 @@
 namespace cclient {
 namespace data {
 
-class KeyValue {
+class KeyValue : public StreamInterface{
 public:
 	 KeyValue();
 

@@ -1,4 +1,5 @@
 #include "byte_stream.h"
+#include <string.h> /* memset */
 
 using namespace cclient::data::streams;
 
@@ -22,7 +23,7 @@ void ByteOutputStream::flush() {
 	offset = 0;
 }
 
-virtual uint64_t ByteOutputStream::getPos() {
+ uint64_t ByteOutputStream::getPos() {
 	return offset;
 }
 
@@ -45,7 +46,7 @@ void ByteOutputStream::setOutputStreamRef(OutputStream *out_stream) {
 	output_stream_ref = out_stream;
 }
 
-virtual uint64_t ByteOutputStream::write(const char *bytes, long cnt) {
+ uint64_t ByteOutputStream::write(const char *bytes, long cnt) {
 
 	if (size - offset < cnt) {
 		// we don't have space, so create
@@ -62,46 +63,46 @@ virtual uint64_t ByteOutputStream::write(const char *bytes, long cnt) {
 	return offset;
 }
 
-virtual uint64_t ByteOutputStream::writeByte(int byte) {
+ uint64_t ByteOutputStream::writeByte(int byte) {
 	uint8_t bt = 0xFF & byte;
 	return writeByte(bt);
 }
 
-virtual uint64_t ByteOutputStream::writeString(string s) {
+ uint64_t ByteOutputStream::writeString(string s) {
 	// write size of string
 	writeHadoopLong(s.size());
 	return writeBytes((uint8_t*) s.data(), s.size());
 }
 
-virtual uint64_t ByteOutputStream::write(const uint8_t *bytes, long cnt) {
+ uint64_t ByteOutputStream::write(const uint8_t *bytes, long cnt) {
 	return write((const char*) bytes, cnt);
 }
 
-virtual uint64_t ByteOutputStream::writeBytes(const uint8_t *bytes,
+ uint64_t ByteOutputStream::writeBytes(const uint8_t *bytes,
 		size_t cnt) {
 	return write((const char*) bytes, cnt);
 }
 
-virtual uint64_t ByteOutputStream::writeByte(const uint8_t byte) {
+ uint64_t ByteOutputStream::writeByte(const uint8_t byte) {
 	return write((const char*) &byte, 1);
 
 }
 
-virtual uint64_t ByteOutputStream::writeShort(const short shortVal) {
+ uint64_t ByteOutputStream::writeShort(const short shortVal) {
 
 	return write((const char*) &shortVal, 2);
 }
-virtual uint64_t ByteOutputStream::writeInt(const int intVal) {
+ uint64_t ByteOutputStream::writeInt(const int intVal) {
 	return write((const char*) &intVal, 4);
 
 }
 
-virtual uint64_t ByteOutputStream::writeLong(const uint64_t val) {
+ uint64_t ByteOutputStream::writeLong(const uint64_t val) {
 	return write((const char*) &val, 8);
 
 }
 
-virtual uint64_t ByteOutputStream::writeBoolean(const bool val) {
+ uint64_t ByteOutputStream::writeBoolean(const bool val) {
 	uint8_t byte = 0x00;
 	if (val)
 		byte = 0x01;
