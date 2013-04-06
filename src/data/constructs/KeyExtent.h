@@ -41,6 +41,11 @@ class KeyExtent {
 public:
 	KeyExtent(string flattenedText, Value *prevEndRow);
 
+	KeyExtent(string tableIdIn, string endRowIn) : KeyExtent(tableIdIn,endRowIn,"")
+	{
+
+	}
+
 	KeyExtent(string tableIdIn, string endRowIn, string prevEndRowIn)
 	{
 		if (IsEmpty(&tableIdIn))
@@ -139,7 +144,7 @@ public:
 
 	string getPrevEndRow()
 	{
-		return prevEndRow();
+		return prevEndRow;
 	}
 
 protected:

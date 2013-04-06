@@ -5,7 +5,11 @@
 #include <algorithm>
 #include <map>
 
+
 using namespace std;
+
+#include "../transport/TransportIdentifiers.h"
+
 namespace interconnect
 {
 struct CopyKey
@@ -17,8 +21,11 @@ struct CopyKey
 	}
 };
 
+
+
+
 template<typename M, typename V>
-class ScanIdentifier
+class ScanIdentifier: private TransportIdenifiers<M,V>
 {
 protected:
 	map<M, vector<V> > globalIdentifierMapping;
