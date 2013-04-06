@@ -22,39 +22,13 @@
 #define SERVERCONNECTION_H_
 
 #include "../../data/constructs/inputvalidation.h"
+#include "../../data/exceptions/IllegalArgumentException.h"
 
 namespace interconnect
 {
-struct Cmp_ServerConnection
-{
-	bool operator()(const ServerConnection& first,
-			const ServerConnection& second)
-	{
-		bool less = first.host < second.host;
-		if (less)
-			return true;
-		else
-		{
-			if (first.host > second.host)
-				return false;
-			else
-			{
-				less = first.port < second.port;
-				if (less)
-					return true;
-				else
-				{
-					if (first.port > second.port)
-						return false;
-					else
-					{
-						return first.timeout < second.timeout;
-					}
-				}
-			}
-		}
-	}
-};
+
+using namespace cclient::exceptions;
+
 
 class ServerConnection
 {
@@ -75,17 +49,17 @@ public:
 		return host == rhs.host && port == rhs.port && timeout == rhs.timeout;
 	}
 
-	string getHost()
+	string getHost() const
 	{
 		return host;
 	}
 
-	uint16_t getPort()
+	uint16_t getPort() const
 	{
 		return port;
 	}
 
-	uint64_t getTimeout()
+	uint64_t getTimeout() const
 	{
 		return timeout;
 	}
@@ -104,5 +78,37 @@ protected:
 	uint16_t port;
 	uint64_t timeout;
 };
+
+struct Cmp_ServerConnection
+{
+	bool operator()(const ServerConnection& first,
+			const ServerConnection& second)
+	{
+		bool less = first.getHost() < second.getHost();
+		if (less)
+			return true;
+		else
+		{
+			if (first.getHost() > second.getHost())
+				return false;
+			else
+			{
+				less = first.getPort() < second.getPort();
+				if (less)
+					return true;
+				else
+				{
+					if (first.getPort() > second.getPort())
+						return false;
+					else
+					{
+						return first.getTimeout() < second.getTimeout();
+					}
+				}
+			}
+		}
+	}
+};
+
 }
 #endif /* SERVERCONNECTION_H_ */

@@ -21,42 +21,43 @@
 #ifndef SCANREQUEST_H_
 #define SCANREQUEST_H_
 
-#include "../data/constructs/IterInfo.h"
-#include "../data/constructs/column.h"
+#include <vector>
+using namespace std;
 
-#include "../data/constructs/security/AuthInfo.h"
-#include "../data/constructs/security/Authorizations.h"
+#include "../../data/constructs/IterInfo.h"
+#include "../../data/constructs/column.h"
+
+#include "../../data/constructs/security/AuthInfo.h"
+#include "../../data/constructs/security/Authorizations.h"
+#include "../../data/constructs/inputvalidation.h"
+#include "../../data/exceptions/IllegalArgumentException.h"
+#include "../transport/ServerConnection.h"
+#include "ScanIdentifier.h"
 
 namespace interconnect
 {
 using namespace cclient::data;
+using namespace cclient::exceptions;
 using namespace cclient::data::security;
 /**
  * Represents a scan request
  */
 
-template<typename I>
+template<typename K, typename V>
 class ScanRequest
 {
-
-	/*
-	 * void startMultiScan(accumulo::data::InitialMultiScan& _return,
-	 const accumulo::cloudtrace::TInfo& tinfo,
-	 const accumulo::security::AuthInfo& credentials,
-	 const accumulo::data::ScanBatch& batch,
-	 const std::vector<accumulo::data::TColumn> & columns,
-	 const std::vector<accumulo::data::IterInfo> & ssiList,
-	 const std::map<std::string,
-	 std::map<std::string, std::string> > & ssio,
-	 const std::vector<std::string> & authorizations,
-	 const bool waitForWrites);
-	 */
 
 public:
 	ScanRequest(AuthInfo *credentials, Authorizations *auths,
 			ServerConnection *server) :
 			creds(credentials), auths(auths), connection(server)
 	{
+
+		if (IsEmpty(credentials) || IsEmpty(auths) || IsEmpty(server))
+		{
+			throw IllegalArgumentException(
+					"credentials, authorizations, and server must not be empty");
+		}
 
 	}
 
@@ -66,12 +67,9 @@ public:
 	}
 
 	virtual void setIters(vector<IterInfo*> *iters)
-		{
-		for (auto it = iters->begin(); it != iters->end(); it++)
-				{
-					iterators.push_back(*it);
-				}
-		}
+	{
+		iterators.insert(iterators.end(), iters->begin(), iters->end());
+	}
 
 	void addColumn(Column *col)
 	{
@@ -83,40 +81,39 @@ public:
 		columns.insert(columns.end(), cols->begin(), cols->end());
 	}
 
-	constexpr vector<Column*> *getColumns()
+	vector<Column*> *getColumns() const
 	{
 		return columns;
 	}
 
-	constexpr AuthInfo *getCredentials()
+	AuthInfo *getCredentials() const
 	{
 		return creds;
 	}
 
-	constexpr Authorizations *getAuthorizations()
+	Authorizations *getAuthorizations() const
 	{
 		return auths;
 	}
 
-	constexpr auto *getIterators()
+	vector<IterInfo*> *getIterators() const
 	{
 		return &iterators;
 	}
 
-	void putIdentifier(ScanIdentifier<I> ident)
+	void putIdentifier(ScanIdentifier<K,V> *ident)
 	{
-		identifiers.push_back( ident);
+		identifiers.push_back(ident);
 	}
 
-	constexpr vector<ScanIdentifier<I>>  *getRangeIdentifiers()
-		{
+	vector<ScanIdentifier<K,V>*> *getRangeIdentifiers() const
+	{
 		return &identifiers;
-		}
-
+	}
 
 protected:
 
-	vector<ScanIdentifier<I>*> identifiers;
+	vector<ScanIdentifier<K,V>*> identifiers;
 	AuthInfo *creds;
 	Authorizations *auths;
 	vector<IterInfo*> iterators;

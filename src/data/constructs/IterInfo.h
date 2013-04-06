@@ -42,17 +42,17 @@ public:
 
 	}
 
-	constexpr uint32_t getPriority()
+	uint32_t getPriority() const
 	{
 		return priority;
 	}
 
-	constexpr string getName()
+	string getName() const
 	{
 		return iterName;
 	}
 
-	constexpr string getClass()
+	string getClass() const
 	{
 		return iterClass;
 	}
@@ -62,7 +62,7 @@ public:
 		options[optionName] = optionValue;
 	}
 
-	constexpr map<string, string> getOptions()
+	const map<string, string> getOptions() const
 	{
 		return options;
 	}

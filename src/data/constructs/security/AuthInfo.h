@@ -38,17 +38,17 @@ public:
 
 	virtual ~AuthInfo();
 	
-	string getUserName()
+	string getUserName() const
 	{
 	    return user;
 	}
 	
-	string getPassword()
+	string getPassword() const
 	{
 	    return password;
 	}
 	
-	string getInstanceId()
+	string getInstanceId() const
 	{
 	    return instanceId;
 	}
