@@ -16,12 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef INPUTVALIDATION_H
 #define INPUTVALIDATION_H
 
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <string.h>
 #include <stdio.h>
 #include <vector>
@@ -46,12 +46,12 @@ public:
 
 
 template <typename T>
-static auto IsEmpty(T *t) -> typename std::enable_if<has_size<T>::value ==1, bool>::type {
+static auto IsEmpty(T *t) -> typename enable_if<has_size<T>::value ==1, bool>::type {
   return (NULL == t || t->size() == 0);
 }
 
 template <typename T>
-static auto IsEmpty(T *t) -> typename std::enable_if<not has_size<T>::value , bool>::type {
+static auto IsEmpty(T *t) -> typename enable_if<not has_size<T>::value , bool>::type {
   return (NULL == t );
 }
 
@@ -77,12 +77,12 @@ static bool isValidPort(uint32_t port)
     return true;
 }
 
-static vector<std::string> split(string str, char delim)
+static vector<string> split(string str, char delim)
 {
 
-  std::stringstream test(str);
-  std::string segment;
-  std::vector<std::string> seglist;
+  stringstream test(str);
+  string segment;
+  vector<string> seglist;
 
   while(std::getline(test, segment, delim))
   {
