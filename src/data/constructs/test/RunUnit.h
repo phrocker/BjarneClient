@@ -89,6 +89,19 @@ static vector<RunUnit> units;
 
 #define RUN_TESTS for(auto t: units) t.run();
 
+#define RUN_TEST(x) x.run();
+
+static bool encounteredException=false;
+
+#define BEGIN_EXPECTED_EXCEPTION(e) \
+			encounteredException = false; try{
+
+#define END_EXPECTED_EXCEPTION(e) \
+			}catch(e){ \
+				encounteredException = true; \
+			}	\
+			UNIT_ASSERT( encounteredException == true);
+
 }
 }
 
