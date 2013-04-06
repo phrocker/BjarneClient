@@ -1,8 +1,8 @@
 /**
-  * Hello, this is BjarneClient, a free and open implementation of Accumulo
-  * and big table. This is meant to be the client that accesses Accumulo
+  * Hello, this is BjarneClient, a free and open implementation of Accumulo 
+  * and big table. This is meant to be the client that accesses Accumulo 
   * and BjarneTable -- the C++ implemenation of Accumulo. Copyright (C)
-  * 2013 -- Marc Delta Poppa @ accumulo.net
+  * 2013 -- BinaryStream LLC
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,25 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   **/
 
-#ifndef STRUCTURE_DEFS_H_
-#define STRUCTURE_DEFS_H_
+#ifndef TRANSPORTIDENTIFIERS_H_
+#define TRANSPORTIDENTIFIERS_H_
 
 #include <string>
 
 using namespace std;
 
-#define METADATA_TABLET_COLUMN_FAMILY string("~tab")
-#define METADATA_CURRENT_LOCATION_COLUMN_FAMILY string("loc")
-#define METADATA_FUTURE_LOCATION_COLUMN_FAMILY string("future")
-#define METADATA_LAST_LOCATION_COLUMN_FAMILY string("last")
-#define METADATA_PREV_ROW_COLUMN_CQ string("~pr")
-#define METADATA_TABLE_ID string("!0")
+#include "../../data/constructs/KeyExtent.h"
+#include "../../data/constructs/Range.h"
+
+using namespace cclient::data;
+
+template<typename M,typename V>
+struct TransportIdenifiers;
+
+template<> struct TransportIdenifiers<string,string>{};
+
+template<> struct TransportIdenifiers<KeyExtent*,Range*>{};
 
 
-#endif
+
+#endif /* TRANSPORTIDENTIFIERS_H_ */

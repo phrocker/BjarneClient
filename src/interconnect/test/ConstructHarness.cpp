@@ -20,6 +20,7 @@ int main()
 		RUN_TEST( TestIdentifier() );
 		RUN_TEST( TestScanRequest() );
 		RUN_TEST( TestServerConnection() );
+		RUN_TEST( TestThrift() );
 	}
 	catch(std::exception& e)
 	{
