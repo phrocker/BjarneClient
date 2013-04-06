@@ -46,7 +46,9 @@ struct unit
 };
 
 
-#define UNIT_ASSERT(x) if (!x) return false
+#define UNIT_ASSERT(x) if (!(x)) return false;
+
+#define EXPECT_VALUE(x,m) if (!x){ cout << m << endl; return false; }
 
 
 class RunUnit

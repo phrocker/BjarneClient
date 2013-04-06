@@ -61,11 +61,6 @@ class MasterConnect: public ServerInterconnect
 public:
 	MasterConnect(const string host, const int port);
 	MasterConnect(shared_ptr<TTransport> transport);
-
-/*	void authenticate(string username, string password);
-
-	void authenticate(AuthInfo *credentials);
-*/
 	virtual ~MasterConnect();
 
 
