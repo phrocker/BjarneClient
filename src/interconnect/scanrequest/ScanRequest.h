@@ -43,7 +43,7 @@ using namespace cclient::data::security;
  * Represents a scan request
  */
 
-template<typename K, typename V>
+template<typename I>
 class ScanRequest
 {
 
@@ -96,16 +96,18 @@ public:
 		return auths;
 	}
 
-	vector<IterInfo*> *getIterators() const
+	vector<IterInfo*> *getIterators()
 	{
 		return &iterators;
 	}
 
+	template<typename K,typename V>
 	void putIdentifier(ScanIdentifier<K,V> *ident)
 	{
 		identifiers.push_back(ident);
 	}
 
+	template<typename K,typename V>
 	vector<ScanIdentifier<K,V>*> *getRangeIdentifiers() const
 	{
 		return &identifiers;
@@ -113,7 +115,7 @@ public:
 
 protected:
 
-	vector<ScanIdentifier<K,V>*> identifiers;
+	vector<I*> identifiers;
 	AuthInfo *creds;
 	Authorizations *auths;
 	vector<IterInfo*> iterators;
