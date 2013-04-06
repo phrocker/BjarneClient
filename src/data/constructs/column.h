@@ -19,13 +19,15 @@
 #ifndef COLUMN_H
 #define COLUMN_H
 
-#include "../streaming/stream_ifc.h"
-#include "../streaming/hadoop_stream.h"
-
 #include <stdint.h>
 
 #include <stdio.h>
 #include <string.h>
+
+using namespace std;
+
+#include "../streaming/stream_ifc.h"
+#include "../streaming/hadoop_stream.h"
 
 namespace cclient
 {
@@ -38,14 +40,16 @@ class Column: public StreamInterface
 {
 
 public:
-	Column(){
 
-	}
-	Column(string *columFam, string *columnQual, string *columnVis);
-	Column(const Column& other)
+	Column(string columFam, string columnQual, string columnVis) :
+			Column(&columFam, &columnQual, &columnVis)
 	{
 
 	}
+
+	Column(string *columFam, string *columnQual = NULL,
+			string *columnVis = NULL);
+
 	virtual ~Column();
 	virtual Column& operator=(const Column& other);
 	virtual bool operator==(const Column& other) const;
@@ -57,6 +61,27 @@ public:
 	}
 	uint64_t write(OutputStream *outStream);
 
+	void setColFamily(const char *r, uint32_t size);
+
+	std::pair<char*, size_t> getColFamily()
+	{
+		return std::make_pair(columnFamily, columnFamilyLen);
+	}
+
+	void setColQualifier(const char *r, uint32_t size);
+
+	std::pair<char*, size_t> getColQualifier()
+	{
+		return std::make_pair(columnQualifier, columnQualifierLen);
+	}
+
+	void setColVisibility(const char *r, uint32_t size);
+
+	std::pair<char*, size_t> getColVisibility()
+	{
+		return std::make_pair(columnVisibility, columnVisibilityLen);
+	}
+
 private:
 
 	char *columnFamily;
@@ -67,27 +92,6 @@ private:
 
 	char *columnVisibility;
 	uint16_t columnVisibilityLen;
-
-	void setColFamily(const char *r, uint32_t size);
-
-	std::pair<char*, size_t> getColFamily()
-	{
-		return std::make_pair(columnFamily, columnFamilyLength);
-	}
-
-	void setColQualifier(const char *r, uint32_t size);
-
-	std::pair<char*, size_t> getColQualifier()
-	{
-		return std::make_pair(columnQualifier, colQualLen);
-	}
-
-	void setColVisibility(const char *r, uint32_t size);
-
-	std::pair<char*, size_t> getColVisibility()
-	{
-		return std::make_pair(columnVisibility, columnVisibilityLen);
-	}
 
 	/**
 	 * copied from writable comparable utils
@@ -109,5 +113,6 @@ private:
 		return l1 - l2;
 	}
 };
-
+}
+}
 #endif // COLUMN_H

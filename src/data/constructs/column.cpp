@@ -20,16 +20,18 @@
 
 #include <string>
 using namespace std;
-#include "column.h"
+
 #include "inputvalidation.h"
+
+
+#include "column.h"
+
 
 namespace cclient {
 namespace data {
 
-using namespace cclient::data::streams;
 
-Column::Column(string *columFam, string *columnQual = NULL, string *columnVis =
-		NULL) {
+Column::Column(string *columFam, string *columnQual, string *columnVis) {
 	if (!IsEmpty(columFam)) {
 		columnFamily = new char[columFam->size() + 1];
 		memcpy(columnFamily, columFam->c_str(), columFam->size());
@@ -61,12 +63,12 @@ Column::Column(string *columFam, string *columnQual = NULL, string *columnVis =
 void Column::setColFamily(const char *r, uint32_t size) {
 
 	if (columnFamilyLen > 0) {
-		delete[] colFamily;
-		colFamily = new char[size];
+		delete[] columnFamily;
+		columnFamily = new char[size];
 		columnFamilyLen = size;
 	}
 
-	memcpy(colFamily, r, size);
+	memcpy(columnFamily, r, size);
 	columnFamilyLen = size;
 
 }
@@ -85,7 +87,7 @@ void Column::setColQualifier(const char *r, uint32_t size) {
 
 void Column::setColVisibility(const char *r, uint32_t size) {
 		if (columnVisibilityLen > 0) {
-			delete[] keyVisibility;
+			delete[] columnVisibility;
 			columnVisibility = new char[size];
 			columnVisibilityLen = size;
 		}

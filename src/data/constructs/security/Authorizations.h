@@ -21,14 +21,15 @@
 #ifndef AUTHORIZATIONS_H_
 #define AUTHORIZATIONS_H_
 
-#include "../../exceptions/ClientException.h"
-
 #include <iostream>
 #include <string>
 #include <set>
 #include <list>
 
 using namespace std;
+
+#include "../../exceptions/ClientException.h"
+
 using namespace cclient::exceptions;
 
 namespace cclient
@@ -37,6 +38,9 @@ namespace data
 {
 namespace security
 {
+
+static bool validAuthChars[256];
+
 class Authorizations
 {
 public:
@@ -44,17 +48,22 @@ public:
 	{
 		for (int i = 0; i < valid; i++)
 		{
-			validAuthChars[validCharacters[i]] = true;
+			validAuthChars[(char) validCharacters[i]] = true;
 		}
-	}
-	Authorizations(list<string> authorizations)
-	{
-		for (list<string>::iterator it = authorizations.begin();
-				it != authorizations.end(); it++)
-			addAuthorization(**it);
+		addAuthorization(authorizations);
 	}
 
-	void addAuthorization(string auth);
+
+	Authorizations(list<string> authorizations)
+	{
+		for (auto it = authorizations.begin(); it != authorizations.end(); it++)
+			addAuthorization(*it);
+	}
+
+	void addAuthorization(string auth)
+	{
+		authStrings.insert(auth);
+	}
 
 	vector<string> getAuthorizations()
 	{
@@ -68,13 +77,16 @@ public:
 
 	static int __init_auths;
 
-	virtual ~Authorizations();
+	virtual ~Authorizations()
+	{
+
+	}
+
 protected:
 
 	void validateAuths()
 	{
-		for (list<string>::iterator it = authStrings.begin();
-				it != authStrings.end(); it++)
+		for (auto it = authStrings.begin(); it != authStrings.end(); it++)
 		{
 			for (int i = 0; i < (*it).size(); i++)
 			{
@@ -120,7 +132,6 @@ protected:
 
 	set<string> authStrings;
 
-	static bool validAuthChars = new bool[256];
 };
 
 int Authorizations::__init_auths = Authorizations::buildDefaultAuths();

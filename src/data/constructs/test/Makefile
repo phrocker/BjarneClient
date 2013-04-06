@@ -4,7 +4,7 @@ LDLIBS=
 RM=rm -f
 PWD=`pwd`
 
-SRCS=../Key.cpp ConstructHarness.cpp
+SRCS=../Key.cpp ../column.cpp ../security/AuthInfo.cpp ConstructHarness.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 DEPENDENCIES=../../streaming/streaming.so 
 
